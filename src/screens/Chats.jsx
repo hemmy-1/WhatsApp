@@ -100,7 +100,7 @@ export default function Chats() {
 
                 </View>
 
-                <View style={{ marginTop: 10, gap: 15 }}>
+                <TouchableOpacity style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                         <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
                         <Text style={{
@@ -110,23 +110,33 @@ export default function Chats() {
                         </Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', justifyContent:'space-between',alignItems:'center' }}>
-                        <View style={{flexDirection:'row', alignItems: 'center', gap: 20}}>
-                        <Image source={require('../assets/myimage.png')}
-                            style={{ height: 50, width: 50, borderRadius: 50 }} />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                            <Image source={require('../assets/myimage.png')}
+                                style={{ height: 55, width: 55, borderRadius: 50 }} />
+
+                            <View>
+                                <Text style={{
+                                    color: '#fff',
+                                    fontSize: 16,
+                                    fontWeight: 'bold',
+                                }}>
+                                    Name
+                                </Text>
+                                <Text style={{
+                                    color: '#888',
+                                    fontSize: 14,
+                                }}>
+                                    messages
+                                </Text>
+                            </View>
+                        </View>
 
                         <View>
-                            <Text style={{ color: 'white', fontWeight: '900', fontSize: 20 }}>
-                                Name
-                            </Text>
-                            <Text style={{ color: 'white' }}>
-                                messages
-                            </Text>
-                        </View>
-                        </View>
-
-                        <View>
-                            <Text style={{color:'white',paddingLeft:10,}}>
+                            <Text style={{
+                                color: '#888',
+                                fontSize: 12,
+                            }}>
                                 Time
                             </Text>
 
@@ -139,7 +149,9 @@ export default function Chats() {
 
 
 
-                </View>
+                </TouchableOpacity>
+
+
 
 
 

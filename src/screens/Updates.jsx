@@ -1,12 +1,13 @@
-import { Text, View } from "react-native";
+import { View, Text } from 'react-native'
+import React from 'react'
 
-
-export default function Updates() {
-    return(
-        <View style={{alignContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:40}}>
-                welcome to  chat
-            </Text>
-        </View>
-    )
+const Updates = () => {
+  return (
+    <View>
+      <Text>profile</Text>
+    </View>
+  )
 }
+
+export default Updates
+
