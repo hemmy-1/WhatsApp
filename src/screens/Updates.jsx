@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity,} from "react-native";
+import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, } from "react-native";
 import { SafeAreaProvider, SafeAreaView, } from "react-native-safe-area-context";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -6,76 +6,76 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const DATA = [
     {
-        id:'1',
+        id: '1',
         image: require('../assets/myimage.png'),
         title: 'EnochDmc',
         time: '31 minutes ago',
     },
 
-      {
+    {
         id: '2',
-        image:require('../assets/everything.jpg'),
+        image: require('../assets/everything.jpg'),
         title: 'Mr ibrahm',
         time: '10 minutes ago',
     },
 
-      {
+    {
         id: '3',
-        image:require('../assets/make1 (1).jpg'),
+        image: require('../assets/make1 (1).jpg'),
         title: 'mark',
         time: '8 minutes ago',
     },
 
-    
-      {
+
+    {
         id: '4',
-        image:require('../assets/make1 (2).jpg'),
+        image: require('../assets/make1 (2).jpg'),
         title: 'vic',
         time: '20 minutes ago',
     },
 
-    
-      {
+
+    {
         id: '5',
-        image:require('../assets/make1 (3).jpg'),
+        image: require('../assets/make1 (3).jpg'),
         title: 'john',
         time: '15 minutes age',
     },
 
-    
-      {
-         id: '6',
-        image:require('../assets/make1 (4).jpg'),
+
+    {
+        id: '6',
+        image: require('../assets/make1 (4).jpg'),
         title: 'Davide',
         time: '11 minutes age',
     },
 
-    
-      {
-       id: '7',
-        image:require('../assets/make1 (5).jpg'),
+
+    {
+        id: '7',
+        image: require('../assets/make1 (5).jpg'),
         title: 'Gbegan',
         time: '12 minutes age',
     },
 
-    
-      {
-         id: '8',
-        image:require('../assets/make1 (6).jpg'),
+
+    {
+        id: '8',
+        image: require('../assets/make1 (6).jpg'),
         title: 'Emmanuel',
         time: '30 minutes age',
     },
 
-    
-      {
-         id: '9',
-        image:require('../assets/make1 (7).jpg'),
+
+    {
+        id: '9',
+        image: require('../assets/make1 (7).jpg'),
         title: 'Owooluwa',
         time: '1 minutes age',
     },
 ]
 
-               
+
 export default function Updates() {
     return (
         <SafeAreaProvider>
@@ -132,22 +132,24 @@ export default function Updates() {
                     </View>
                 </View>
                 <Text style={{ color: "white", fontSize: 12, }}>Recent updates</Text>
-<View style={{flex:1}}> 
-    <FlatList
-    data={DATA}
-     renderItem={({item}) => (<TouchableOpacity style={styles.statusContainer}>
-                    <Image source={item.image}
-                    style={styles.imageStatus}
+
+                
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({ item }) => (<TouchableOpacity style={styles.statusContainer}>
+                            <Image source={item.image}
+                                style={styles.imageStatus}
+                            />
+                            <View>
+                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.title}>{item.time}</Text>
+                            </View>
+                        </TouchableOpacity>)}
+                        keyExtractor={item => item.id}
                     />
-                    <View>
-                        <Text style={styles.title}>{item.title}</Text>
-                        <Text style={styles.title}>{item.time}</Text>
-                    </View>
-                </TouchableOpacity>)}
-    keyExtractor={item => item.id}
-    />
-</View>
- 
+                </View>
+
 
             </SafeAreaView>
         </SafeAreaProvider>
@@ -164,19 +166,22 @@ const styles = StyleSheet.create({
 
     },
     statusContainer: {
-       
+
         flexDirection: "row",
         alignItems: "center",
         gap: 10,
-        marginTop:15,
-       
-        
-    },
-    title:{ color: 'white',
-         fontSize: 10
-         },
+        marginTop: 15,
 
-         imageStatus:{ width: 50,
-             height: 50, 
-            borderRadius: 50, },
+
+    },
+    title: {
+        color: 'white',
+        fontSize: 10
+    },
+
+    imageStatus: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+    },
 });
