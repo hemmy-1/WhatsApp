@@ -3,8 +3,11 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function Chats() {
+    const navigation = useNavigation()
 
     const Data = [
         {
@@ -56,6 +59,94 @@ export default function Chats() {
         )
     }
 
+    // const email = 'emocakll@gmail.com';
+    // const password = '232@menmmee';
+
+    const MainChat = [
+        {
+            id: '1',
+            name: 'Emmanuel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            picture:require("../assets/")
+        },
+        {
+            id: '2',
+            name: 'Enoch',
+            message: 'welcome to this chat',
+            time: '10:10'
+
+        },
+        {
+            id: '3',
+            name: 'Owooluwa',
+            message: 'welcome to this chat',
+            time: '10:10'
+        },
+        {
+            id: '4',
+            name: 'David',
+            message: 'welcome to this chat',
+            time: '10:10'
+        },
+        {
+            id: '5',
+            name: 'Gbenga',
+            message: 'welcome to this chat',
+            time: '10:10'
+        },
+        {
+            id: '6',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10'
+        },
+    ]
+    const MainChatView = ({ item }) => {
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('messages',{MainChat:item} )} style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between', alignItems: 'center', marginBottom: 20
+            }}>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                    <Image source={require('../assets/myimage.png')}
+                        style={{ height: 55, width: 55, borderRadius: 50 }} />
+
+                    <View>
+                        <Text style={{
+                            color: '#fff',
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                        }}>
+                            {item.name}
+                        </Text>
+                        <Text style={{
+                            color: '#888',
+                            fontSize: 14,
+                        }}>
+                            {item.message}
+                        </Text>
+                    </View>
+                </View>
+
+                <View>
+                    <Text style={{
+                        color: '#888',
+                        fontSize: 12,
+                    }}>
+                        {item.time}
+                    </Text>
+
+                </View>
+
+                <Image source={item.picture} />
+
+            </TouchableOpacity>
+
+        )
+    }
+
 
 
 
@@ -100,7 +191,7 @@ export default function Chats() {
 
                 </View>
 
-                <TouchableOpacity style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
+                <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                         <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
                         <Text style={{
@@ -109,39 +200,11 @@ export default function Chats() {
                             Archived
                         </Text>
                     </View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-                            <Image source={require('../assets/myimage.png')}
-                                style={{ height: 55, width: 55, borderRadius: 50 }} />
-
-                            <View>
-                                <Text style={{
-                                    color: '#fff',
-                                    fontSize: 16,
-                                    fontWeight: 'bold',
-                                }}>
-                                    Name
-                                </Text>
-                                <Text style={{
-                                    color: '#888',
-                                    fontSize: 14,
-                                }}>
-                                    messages
-                                </Text>
-                            </View>
-                        </View>
-
-                        <View>
-                            <Text style={{
-                                color: '#888',
-                                fontSize: 12,
-                            }}>
-                                Time
-                            </Text>
-
-                        </View>
-
+                    <View>
+                        <FlatList
+                            data={MainChat}
+                            renderItem={MainChatView}
+                            keyExtractor={item => item.id} />
                     </View>
 
 
@@ -149,7 +212,8 @@ export default function Chats() {
 
 
 
-                </TouchableOpacity>
+
+                </View>
 
 
 
@@ -161,6 +225,8 @@ export default function Chats() {
         </SafeAreaProvider>
     )
 }
+
+
 
 
 const styles = StyleSheet.create({

@@ -16,7 +16,7 @@ export default function Communities() {
       </SafeAreaView>
     </SafeAreaProvider>
   )
-}
+};
 
 const styles = StyleSheet.create({
   container: {
