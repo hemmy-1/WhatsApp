@@ -2,10 +2,10 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Updates from '../screens/updates';
-import Calls from '../screens/calls';
-import Communities from '../screens/communities';
-import Chats from '../screens/chats';
+import Updates from '../screens/Updates';
+import Calls from '../screens/Calls';
+import Communities from '../screens/Communities';
+import Chats from '../screens/Chats';
 
 const Tab = createBottomTabNavigator();
 

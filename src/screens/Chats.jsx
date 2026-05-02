@@ -68,7 +68,7 @@ export default function Chats() {
             name: 'Emmanuel',
             message: 'welcome to this chat',
             time: '10:10',
-            picture:require("../assets/")
+           
         },
         {
             id: '2',
@@ -140,7 +140,7 @@ export default function Chats() {
 
                 </View>
 
-                <Image source={item.picture} />
+                
 
             </TouchableOpacity>
 
