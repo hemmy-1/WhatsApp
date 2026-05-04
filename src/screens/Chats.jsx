@@ -68,6 +68,7 @@ export default function chats() {
             name: 'Emmanuel',
             message: 'welcome to this chat',
             time: '10:10',
+           
         },
         {
             id: '2',
@@ -138,8 +139,8 @@ export default function chats() {
                     </Text>
 
                 </View>
-{/* 
-                <Image source={item.picture} /> */}
+
+                
 
             </TouchableOpacity>
 

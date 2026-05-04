@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Import your navigators and screens
 import TabNavigator from './TabNavigator'; 
-import chats from '../screens/chats';
-import Updates from '../screens/Updates'; // Fixed Case
-import Calls from '../screens/Calls';     // Fixed Case
-import communities from '../screens/communities';
+import Chats from '../screens/Chats';
+import Updates from '../screens/Updates';
+import Calls from '../screens/Calls';
+import Communities from '../screens/Communities';
 import messages from '../screens/messages';
 
 const Stack = createNativeStackNavigator();

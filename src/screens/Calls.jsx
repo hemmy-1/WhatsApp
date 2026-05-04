@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Entypo from '@expo/vector-icons/Entypo';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+
 const Data = [
     {
         id: '1',
@@ -27,6 +31,63 @@ const Data = [
         title: 'Favorites',
     },
 ]
+
+
+const DataCall = [
+    {
+        id: '1',
+        image: require('../assets/make1 (1).jpg'),
+        name: 'Car Dealer',
+        callin: 'Missed',
+        time: '11:06 AM',
+    },
+    {
+        id: '2',
+        image: require('../assets/make1 (2).jpg'),
+        name: 'Bullish',
+        callin: 'Incoming',
+        time: '11:09 AM',
+    },
+    {
+        id: '3',
+        image: require('../assets/make1 (3).jpg'),
+        name: 'Bearish',
+        callin: 'Missed',
+        time: '11:15 AM',
+    },
+    {
+        id: '4',
+        image: require('../assets/make1 (4).jpg'),
+        name: 'AMG',
+        callin: 'Missed',
+        time: '11:18 AM',
+    },
+    {
+        id: '5',
+        image: require('../assets/make1 (5).jpg'),
+        name: 'URIS',
+        callin: 'Incomming',
+        time: '11:20 AM',
+    },
+    {
+        id: '6',
+        image: require('../assets/make1 (6).jpg'),
+        name: 'Audi',
+        callin: 'Incomming',
+        time: '11:25 AM',
+    },
+    {
+        id: '7',
+        image: require('../assets/make1 (7).jpg'),
+        name: 'Dodge',
+        callin: 'Incomming',
+        time: '12:00 PM',
+    },
+]
+
+
+
+
 const Calls = () => {
     return (
         <SafeAreaProvider>
@@ -65,13 +126,43 @@ const Calls = () => {
                     />
                 </View>
 
-                <Text style={{color:"white",fontSize:18,}}>Recent</Text>
+                <Text style={{ color: "white", fontSize: 18, }}>Recent</Text>
+
 
                 <View>
+                    <FlatList
+                        data={DataCall}
+                        renderItem={({ item }) => (<TouchableOpacity style={styles.callContainer}>
 
+                            <Image source={item.image}
+                                style={styles.imageCall} />
+
+
+                            {/* Second General View*/}
+                            <View style={styles.content}>
+                                <View style={{ gap: 5 }}>
+                                    <Text style={styles.nameCall}>{item.name}</Text>
+                                    <View style={{ flexDirection: "row", gap: 10, }}>
+                                        <SimpleLineIcons name="call-in" size={15} color="gray" />
+                                        <Text style={styles.textcallin}>{item.callin}</Text>
+                                    </View>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: "center", marginTop: -10, }}>
+                                    <Text style={styles.time}>{item.time}</Text>
+                                    <TouchableOpacity>
+                                        <MaterialIcons name="info-outline" size={24} color="gray" />
+                                    </TouchableOpacity>
+                                </View>
+
+                            </View>
+                        </TouchableOpacity>)}
+                        keyExtractor={item => item.id}
+                    />
+                    
                 </View>
-            </SafeAreaView>
-        </SafeAreaProvider>
+            </SafeAreaView >
+        </SafeAreaProvider >
     )
 }
 
@@ -100,4 +191,37 @@ const styles = StyleSheet.create({
     calltitle: {
         alignItems: "center"
     },
+
+    callContainer: {
+        marginTop: 15,
+        flexDirection: "row",
+        gap:18,
+        marginBottom:10,
+
+    },
+    imageCall: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+    },
+    nameCall: {
+        color: "red",
+        fontSize: 18,
+    },
+    textcallin: {
+        fontSize: 15,
+        color: "gray"
+    },
+    time: {
+        color: "gray",
+    },
+    content: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        height: 53,
+        borderBottomWidth: 1,
+        borderBottomColor: "gray"
+    },
 })
+
