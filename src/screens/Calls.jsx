@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useNavigation } from "@react-navigation/native";
 
 
 const Data = [
@@ -89,6 +90,7 @@ const DataCall = [
 
 
 const Calls = () => {
+    const navigation = useNavigation();
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
@@ -113,7 +115,7 @@ const Calls = () => {
                 <View>
                     <FlatList
                         data={Data}
-                        renderItem={({ item }) => (<TouchableOpacity style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
+                        renderItem={({ item }) => (<TouchableOpacity onPress={() => navigation.navigate('Dailycall')}style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
                             <View style={styles.callicons}>
                                 <Ionicons name={item.icons} size={24} color="white" />
                             </View>
@@ -132,7 +134,9 @@ const Calls = () => {
                 <View>
                     <FlatList
                         data={DataCall}
-                        renderItem={({ item }) => (<TouchableOpacity style={styles.callContainer}>
+                        renderItem={({ item }) => (<TouchableOpacity 
+                        onPress={() => navigation.navigate('Dailycall' )}
+                        style={styles.callContainer}>
 
                             <Image source={item.image}
                                 style={styles.imageCall} />
