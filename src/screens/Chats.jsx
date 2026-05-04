@@ -6,7 +6,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function Chats() {
+export default function chats() {
     const navigation = useNavigation()
 
     const Data = [
@@ -68,7 +68,6 @@ export default function Chats() {
             name: 'Emmanuel',
             message: 'welcome to this chat',
             time: '10:10',
-            picture:require("../assets/")
         },
         {
             id: '2',
@@ -139,8 +138,8 @@ export default function Chats() {
                     </Text>
 
                 </View>
-
-                <Image source={item.picture} />
+{/* 
+                <Image source={item.picture} /> */}
 
             </TouchableOpacity>
 

@@ -3,7 +3,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 
-export default function Communities() {
+export default function communities() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
