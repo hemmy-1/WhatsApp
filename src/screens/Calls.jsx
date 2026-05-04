@@ -6,6 +6,8 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 
 const Data = [
     {
@@ -82,6 +84,10 @@ const DataCall = [
         time: '12:00 PM',
     },
 ]
+
+
+
+
 const Calls = () => {
     return (
         <SafeAreaProvider>
@@ -126,27 +132,35 @@ const Calls = () => {
                 <View>
                     <FlatList
                         data={DataCall}
-                        renderItem={({ item }) => (<TouchableOpacity>
-                            <View style={styles.callContainer}>
-                                <Image source={item.image}
-                                    style={styles.imageCall} />
-                            </View>
+                        renderItem={({ item }) => (<TouchableOpacity style={styles.callContainer}>
+
+                            <Image source={item.image}
+                                style={styles.imageCall} />
+
 
                             {/* Second General View*/}
-                            <View>
-                                <View style={{flexDirection:"row"}}>
+                            <View style={styles.content}>
+                                <View style={{ gap: 5 }}>
                                     <Text style={styles.nameCall}>{item.name}</Text>
-                                    <View>
-                                        <SimpleLineIcons name="call-in" size={24} color="white" />
+                                    <View style={{ flexDirection: "row", gap: 10, }}>
+                                        <SimpleLineIcons name="call-in" size={15} color="gray" />
                                         <Text style={styles.textcallin}>{item.callin}</Text>
                                     </View>
                                 </View>
+
+                                <View style={{ flexDirection: 'row', alignItems: "center", marginTop: -10, }}>
+                                    <Text style={styles.time}>{item.time}</Text>
+                                    <TouchableOpacity>
+                                        <MaterialIcons name="info-outline" size={24} color="gray" />
+                                    </TouchableOpacity>
+                                </View>
+
                             </View>
                         </TouchableOpacity>)}
                         keyExtractor={item => item.id}
                     />
+                    
                 </View>
-
             </SafeAreaView >
         </SafeAreaProvider >
     )
@@ -180,7 +194,9 @@ const styles = StyleSheet.create({
 
     callContainer: {
         marginTop: 15,
-
+        flexDirection: "row",
+        gap:18,
+        marginBottom:10,
 
     },
     imageCall: {
@@ -192,9 +208,20 @@ const styles = StyleSheet.create({
         color: "red",
         fontSize: 18,
     },
-    textcallin:{
-        fontSize:15,
-        color:"gray"
+    textcallin: {
+        fontSize: 15,
+        color: "gray"
+    },
+    time: {
+        color: "gray",
+    },
+    content: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        height: 53,
+        borderBottomWidth: 1,
+        borderBottomColor: "gray"
     },
 })
 
