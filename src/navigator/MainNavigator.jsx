@@ -9,6 +9,7 @@ import Calls from '../screens/Calls';
 import Communities from '../screens/Communities';
 import chats from '../screens/Chats';
 import Messages from '../screens/messages';
+import Profile from '../screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const MainNavigator = () => {
       <Stack.Screen name="calls" component={Calls} />
       <Stack.Screen name="Community" component={Communities} />
       <Stack.Screen name="messages" component={Messages} />
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };

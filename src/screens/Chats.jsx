@@ -120,7 +120,7 @@ export default function chats() {
     ]
     const MainChatView = ({ item }) => {
         return (
-            <View style={{ flexDirection: 'row', gap: 10, marginTop: 15 }} >
+            <View style={{ flexDirection: 'row', gap: 10, marginTop: 23 }} >
 
                 <TouchableOpacity onPress={() => {
                     setSelectedUser(item); // Store the clicked user's data
@@ -188,7 +188,7 @@ export default function chats() {
 
                     <View style={{
                         justifyContent: 'space-between', flexDirection: 'row',
-                        alignContent: 'center', alignItems: 'center'
+                        alignContent: 'center', alignItems: 'center', marginTop:10
                     }}>
                         <View>
                             <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
@@ -264,7 +264,7 @@ export default function chats() {
 
                     </View>
 
-                    <View>
+                    <View style={{marginVertical:10}}>
                         <FlatList
                             data={Data}
                             renderItem={messageStatusVIew}
@@ -354,18 +354,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'black',
         paddingTop: 10,
-        paddingHorizontal: 5
+        paddingHorizontal: 10
     },
     search: {
         height: 50,
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
         borderRadius: 30,
         alignItems: 'center',
         flexDirection: 'row',
         gap: 5,
         paddingStart: 10,
-        marginTop: 10,
+        marginTop: 15,
         backgroundColor: '#2f2e2e'
     },
 

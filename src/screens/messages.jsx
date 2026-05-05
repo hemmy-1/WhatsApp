@@ -40,13 +40,31 @@ export default function Messages({ route }) {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons name="arrow-back" size={35} color="white" />
               </TouchableOpacity>
-              <Image source={MainChat.img}
-                style={{ height: 45, width: 45, borderRadius: 40 }} />
-              <Text style={styles.userName}>{MainChat.name}</Text>
+              <TouchableOpacity>
+                <Image source={MainChat.img}
+                  style={{ height: 45, width: 45, borderRadius: 40 }} />
+              </TouchableOpacity>
             </View>
 
-            {/* Right Side: Menu Trigger */}
+
+
+
+            <TouchableOpacity onPress={()=> navigation.navigate('Profile')}
+            style={{
+              height: '100%', width: '50%',
+              justifyContent: 'center', backgroundColor: 'black'
+            }}>
+              <Text style={styles.userName}>{MainChat.name}</Text>
+            </TouchableOpacity>
+
+
+
+
             <View style={styles.rightHeader}>
+              <TouchableOpacity>
+                <Ionicons name="videocam-outline" size={30} color="white"
+                  style={{ marginRight: 15 }} />
+              </TouchableOpacity>
               <Menu
                 visible={visible}
                 onDismiss={closeMenu}
@@ -106,17 +124,17 @@ export default function Messages({ route }) {
                   titleStyle={styles.menuText}
                 />
                 <Menu.Item
-                  onPress={()=>{}}
+                  onPress={() => { }}
                   title="Mute notification"
                   titleStyle={styles.menuText}
                 />
                 <Menu.Item
-                  onPress={() =>{}}
+                  onPress={() => { }}
                   title="Disappearing message"
                   titleStyle={styles.menuText}
                 />
                 <Menu.Item
-                  onPress={()=>{}}
+                  onPress={() => { }}
                   title="Chat Theme"
                   titleStyle={styles.menuText}
                 />
@@ -217,7 +235,7 @@ export default function Messages({ route }) {
 
 const styles = StyleSheet.create({
   container1: {
-    flex: 0.09,
+    flex: 0.11,
     backgroundColor: 'black',
     paddingHorizontal: 10,
 
@@ -231,6 +249,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 5
   },
   leftHeader: {
     flexDirection: 'row',
