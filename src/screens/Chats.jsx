@@ -1,12 +1,24 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, FlatList, Image } from "react-native";
+import { Text, View, StyleSheet, Modal, TextInput, TouchableOpacity, FlatList, Image, TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { Menu, PaperProvider, Divider } from 'react-native-paper';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 export default function chats() {
+
+    const [visible, setVisible] = useState(false);
+    const openMenu = () => setVisible(true);
+    const closeMenu = () => setVisible(false)
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+
     const navigation = useNavigation()
 
     const Data = [
@@ -59,8 +71,6 @@ export default function chats() {
         )
     }
 
-    // const email = 'emocakll@gmail.com';
-    // const password = '232@menmmee';
 
     const MainChat = [
         {
@@ -68,81 +78,102 @@ export default function chats() {
             name: 'Emmanuel',
             message: 'welcome to this chat',
             time: '10:10',
-           
+            img: require('../assets/por.png')
+
         },
         {
             id: '2',
             name: 'Enoch',
             message: 'welcome to this chat',
-            time: '10:10'
+            time: '10:10',
+            img: require('../assets/bat.png')
 
         },
         {
             id: '3',
             name: 'Owooluwa',
             message: 'welcome to this chat',
-            time: '10:10'
+            time: '10:10',
+            img: require('../assets/arsss.jpg')
         },
         {
             id: '4',
             name: 'David',
             message: 'welcome to this chat',
-            time: '10:10'
+            time: '10:10',
+            img: require('../assets/bmw.jpg')
         },
         {
             id: '5',
             name: 'Gbenga',
             message: 'welcome to this chat',
-            time: '10:10'
+            time: '10:10',
+            img: require('../assets/ars.png')
         },
         {
             id: '6',
             name: 'Daniel',
             message: 'welcome to this chat',
-            time: '10:10'
+            time: '10:10',
+            img: require('../assets/meme.png')
         },
     ]
     const MainChatView = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('messages',{MainChat:item} )} style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between', alignItems: 'center', marginBottom: 20
-            }}>
+            <View style={{ flexDirection: 'row', gap: 10, marginTop: 15 }} >
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-                    <Image source={require('../assets/myimage.png')}
+                <TouchableOpacity onPress={() => {
+                    setSelectedUser(item); // Store the clicked user's data
+                    setModalVisible(true);
+                }}
+                >
+                    <Image source={item.img}
                         style={{ height: 55, width: 55, borderRadius: 50 }} />
+                </TouchableOpacity>
 
-                    <View>
-                        <Text style={{
-                            color: '#fff',
-                            fontSize: 16,
-                            fontWeight: 'bold',
-                        }}>
-                            {item.name}
-                        </Text>
+
+
+                <TouchableOpacity onPress={() => navigation.navigate('messages', { MainChat: item })}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flex: 1
+                    }}>
+
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text style={{
+                                color: '#fff',
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                            }}>
+                                {item.name}
+                            </Text>
+                            <Text style={{
+                                color: '#888',
+                                fontSize: 14,
+                            }}>
+                                {item.message}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={{}}>
                         <Text style={{
                             color: '#888',
-                            fontSize: 14,
+                            fontSize: 12,
                         }}>
-                            {item.message}
+                            {item.time}
                         </Text>
+
                     </View>
-                </View>
 
-                <View>
-                    <Text style={{
-                        color: '#888',
-                        fontSize: 12,
-                    }}>
-                        {item.time}
-                    </Text>
+                </TouchableOpacity>
 
-                </View>
-
-                
-
-            </TouchableOpacity>
+            </View>
 
         )
     }
@@ -151,78 +182,167 @@ export default function chats() {
 
 
     return (
-        <SafeAreaProvider>
-            <SafeAreaView style={styles.container}>
+        <PaperProvider>
+            <SafeAreaProvider>
+                <SafeAreaView style={styles.container}>
 
-                <View style={{
-                    justifyContent: 'space-between', flexDirection: 'row',
-                    alignContent: 'center', alignItems: 'center'
-                }}>
-                    <View>
-                        <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
-                            WhatsApp
-                        </Text>
+                    <View style={{
+                        justifyContent: 'space-between', flexDirection: 'row',
+                        alignContent: 'center', alignItems: 'center'
+                    }}>
+                        <View>
+                            <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
+                                WhatsApp
+                            </Text>
+                        </View>
+
+
+                        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+                            <EvilIcons name="camera" size={30} color="white" />
+
+
+                            <Menu
+                                visible={visible}
+                                onDismiss={closeMenu}
+                                anchor={
+                                    <TouchableOpacity onPress={openMenu}>
+                                        <Entypo name="dots-three-vertical" size={24} color="white" />
+                                    </TouchableOpacity>
+                                }
+
+                                contentStyle={{
+                                    backgroundColor: '#1f2c34',
+                                    marginTop: 40, // Adjust position so it doesn't cover the icon
+                                    borderRadius: 12,
+                                    width:200
+
+                                }}>
+
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="New group"
+                                    titleStyle={styles.menuText}
+                                />
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="New broadcast"
+                                    titleStyle={styles.menuText}
+                                />
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="Link devices"
+                                    titleStyle={styles.menuText}
+                                />
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="Starred"
+                                    titleStyle={styles.menuText}
+                                />
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="Read all"
+                                    titleStyle={styles.menuText}
+                                />
+                                <Menu.Item
+                                    onPress={() => { }}
+                                    title="Settings"
+                                    titleStyle={styles.menuText}
+                                />
+
+
+                            </Menu>
+                        </View>
+
                     </View>
 
+                    <View style={styles.search}>
+                        <EvilIcons name="search" size={24} color="white" />
+                        <TextInput
+                            placeholder="Ask Meta AI or Search"
+                            placeholderTextColor={'white'}
+                            inputMode="search" />
 
-                    <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                        <EvilIcons name="camera" size={30} color="white" />
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
                     </View>
 
-                </View>
-
-                <View style={styles.search}>
-                    <EvilIcons name="search" size={24} color="white" />
-                    <TextInput
-                        placeholder="Ask Meta AI or Search"
-                        placeholderTextColor={'white'}
-                        inputMode="search" />
-
-                </View>
-
-                <View>
-                    <FlatList
-                        data={Data}
-                        renderItem={messageStatusVIew}
-                        keyExtractor={item => item.id}
-                        horizontal={true}
-                    />
-
-                </View>
-
-                <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
-                        <Text style={{
-                            color: 'white', marginStart: 10
-                        }}>
-                            Archived
-                        </Text>
-                    </View>
                     <View>
                         <FlatList
-                            data={MainChat}
-                            renderItem={MainChatView}
-                            keyExtractor={item => item.id} />
+                            data={Data}
+                            renderItem={messageStatusVIew}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                        />
+
                     </View>
 
+                    <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                            <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
+                            <Text style={{
+                                color: 'white', marginStart: 10
+                            }}>
+                                Archived
+                            </Text>
+                        </View>
+                        <View>
+                            <FlatList
+                                data={MainChat}
+                                renderItem={MainChatView}
+                                keyExtractor={item => item.id} />
+                        </View>
 
 
 
 
 
 
-                </View>
+
+                    </View>
+
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => setModalVisible(false)}
+                    >
+                        {/* The Overlay/Backdrop */}
+                        <TouchableOpacity
+                            style={styles.centeredView}
+                            activeOpacity={1}
+                            onPressOut={() => setModalVisible(false)} // Dismiss when clicking outside
+                        >
+                            {/* Prevent closing when clicking inside the modal content */}
+                            <TouchableWithoutFeedback>
+                                <View>
+                                    {selectedUser && (
+                                        <ImageBackground
+                                            source={selectedUser.img} // Uses the dynamic image
+                                            style={styles.modalView}
+                                        >
+                                            {/* Header info */}
+                                            <View style={styles.modalHeader}>
+                                                <Text style={styles.modalHeaderText}>
+                                                    {selectedUser.name}
+                                                </Text>
+                                            </View>
+
+                                            {/* Bottom Action Row */}
+                                            <View style={styles.modalActionRow}>
+                                                <MaterialCommunityIcons name="message-text-outline" size={26} color="#25D366" />
+                                                <MaterialCommunityIcons name="phone-outline" size={26} color="#25D366" />
+                                                <MaterialCommunityIcons name="video-outline" size={26} color="#25D366" />
+                                                <AntDesign name="info-circle" size={26} color="#25D366" />
+                                            </View>
+                                        </ImageBackground>
+                                    )}
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </TouchableOpacity>
+                    </Modal>
 
 
-
-
-
-
-
-            </SafeAreaView>
-        </SafeAreaProvider>
+                </SafeAreaView>
+            </SafeAreaProvider>
+        </PaperProvider>
     )
 }
 
@@ -247,5 +367,67 @@ const styles = StyleSheet.create({
         paddingStart: 10,
         marginTop: 10,
         backgroundColor: '#2f2e2e'
+    },
+
+    // modalView: {
+    //     backgroundColor: 'white',
+    //     height: 300,
+    //     width: 280,
+    //     alignItems: 'center',
+    //     position: 'absolute',
+    //     top: 100,
+    //     left: 100,
+    //     marginBottom: 300
+    // },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: { backgroundColor: '#F194FF' },
+    buttonClose: { backgroundColor: '#2196F3' },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    modalText: { marginBottom: 15, textAlign: 'center' },
+    centeredView: {
+        flex: 1,
+        alignItems: 'center',
+        //backgroundColor: 'rgba(0,0,0,0.7)', // Darker background like WhatsApp
+        position: 'relative',
+        top: 200
+    },
+    modalView: {
+        height: 300,
+        width: 280,
+        overflow: 'hidden', // Keeps child views inside border radius
+        backgroundColor: '#1f2c34',
+    },
+    modalHeader: {
+        height: 45,
+        width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        justifyContent: 'center',
+        paddingLeft: 10,
+    },
+    modalHeaderText: {
+        color: 'white',
+        fontSize: 20,
+    },
+    modalActionRow: {
+        backgroundColor: '#1f2c34',
+        height: 50,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+    },
+    menuText: {
+        color: 'white',
+        fontSize: 16,
     }
 })

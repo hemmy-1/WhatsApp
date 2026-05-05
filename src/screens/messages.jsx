@@ -1,17 +1,25 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Menu, PaperProvider, Divider } from 'react-native-paper';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
-export default function messages({ route }) {
+
+export default function Messages({ route }) {
 
   const [visible, setVisible] = useState(false);
-
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
+
+  const [moreVisible, setMoreVisible] = useState(false);
+  const openMoreMenu = () => setMoreVisible(true);
+  const closeMoreMenu = () => setMoreVisible(false);
+
+
 
   const navigation = useNavigation()
   const { MainChat } = route.params
@@ -32,7 +40,7 @@ export default function messages({ route }) {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons name="arrow-back" size={35} color="white" />
               </TouchableOpacity>
-              <Image source={require('../assets/myimage.png')}
+              <Image source={MainChat.img}
                 style={{ height: 45, width: 45, borderRadius: 40 }} />
               <Text style={styles.userName}>{MainChat.name}</Text>
             </View>
@@ -70,9 +78,55 @@ export default function messages({ route }) {
                   titleStyle={styles.menuText}
                 />
               </Menu>
+              <Menu
+                visible={moreVisible}
+                onDismiss={closeMoreMenu}
+                anchor={
+                  <TouchableOpacity onPress={openMoreMenu} style={styles.menuAnchor}>
+                    <Ionicons name="ellipsis-vertical" size={22} color="white" style={{ marginLeft: 15 }} />
 
-              {/* Optional: Vertical dots for other settings */}
-              <Ionicons name="ellipsis-vertical" size={22} color="white" style={{ marginLeft: 15 }} />
+                  </TouchableOpacity>
+                }
+                contentStyle={styles.menuContent}
+              >
+                <Menu.Item
+                  onPress={() => { }}
+                  title="View Contact"
+                  titleStyle={styles.menuText}
+                />
+                <Menu.Item
+                  onPress={() => { }}
+                  title="Search"
+                  titleStyle={styles.menuText}
+                />
+                <Divider style={styles.divider} />
+                <Menu.Item
+                  onPress={() => navigation.navigate('Updates')}
+                  title="Report"
+                  titleStyle={styles.menuText}
+                />
+                <Menu.Item
+                  onPress={()=>{}}
+                  title="Mute notification"
+                  titleStyle={styles.menuText}
+                />
+                <Menu.Item
+                  onPress={() =>{}}
+                  title="Disappearing message"
+                  titleStyle={styles.menuText}
+                />
+                <Menu.Item
+                  onPress={()=>{}}
+                  title="Chat Theme"
+                  titleStyle={styles.menuText}
+                />
+                <Menu.Item
+                  onPress={() => navigation.navigate('Updates')}
+                  title="More"
+                  titleStyle={styles.menuText}
+                />
+              </Menu>
+
             </View>
 
 
@@ -90,19 +144,52 @@ export default function messages({ route }) {
           resizeMode="cover"
           style={styles.container2}>
 
-          <View style={{
-            height: 60, width: '95%', backgroundColor: 'black',
-            alignSelf: ""
-          }}>
-
-            <View style={{ height: 40, width: 100, }}>
-              <Text style={{color:"white", fontSize:35}}>{MainChat.time}</Text>
-            </View>
 
 
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{ flex: 1 }}
+            // This offset nudges the bar to sit perfectly above the keyboard
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 80}          >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={{ flex: 1 }}>
 
-          </View>
+                {/* MESSAGE AREA: This flex:1 View pushes the input down */}
+                <View style={{ flex: 1 }}>
+                  {/* Your FlatList of messages will go here */}
+                </View>
 
+                {/* INPUT AREA: Now part of the normal flow */}
+                <View style={styles.bottomInputRow}>
+                  <View style={styles.inputContainer}>
+                    <TouchableOpacity style={styles.iconButton}>
+                      <MaterialCommunityIcons name="emoticon-happy-outline" size={24} color="#85959f" />
+                    </TouchableOpacity>
+
+                    <TextInput
+                      placeholder="Message"
+                      placeholderTextColor="#85959f"
+                      style={styles.textInput}
+                      multiline
+                    />
+
+                    <TouchableOpacity style={styles.iconButton}>
+                      <Entypo name="attachment" size={20} color="#85959f" style={{ transform: [{ rotate: '315deg' }] }} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.iconButton}>
+                      <Ionicons name="camera-outline" size={24} color="#85959f" />
+                    </TouchableOpacity>
+                  </View>
+
+                  <TouchableOpacity style={styles.micButton}>
+                    <FontAwesome5 name="microphone" size={20} color="black" />
+                  </TouchableOpacity>
+                </View>
+
+              </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
 
 
 
@@ -137,8 +224,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex: 1,
-    backgroundColor: 'blue',
-    paddingHorizontal: 10
+
 
   },
   headerRow: {
@@ -181,5 +267,54 @@ const styles = StyleSheet.create({
   },
   divider: {
     backgroundColor: '#2a3942',
-  }
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    padding: 8,
+    backgroundColor: 'transparent', // Usually sits on top of the chat background
+    position: 'absolute',
+    top: 850,
+
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#1f2c34', // Dark WhatsApp input background
+    borderRadius: 25,
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    minHeight: 48,
+    maxHeight: 100
+  },
+  textInput: {
+    flex: 1,
+    color: 'white',
+    fontSize: 17,
+    marginHorizontal: 8,
+    paddingVertical: 10,
+    // Ensure text aligns properly when multiline
+    textAlignVertical: 'center',
+  },
+  iconButton: {
+    padding: 5,
+  },
+  micButton: {
+    backgroundColor: '#d05b70', // The pinkish-red color from your image
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 8,
+    marginBottom: 0,
+  },
+  bottomInputRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    padding: 8,
+    marginBottom: Platform.OS === 'ios' ? 20 : 5,
+
+  },
+
 });

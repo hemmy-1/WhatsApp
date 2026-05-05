@@ -7,7 +7,8 @@ import Chats from '../screens/Chats';
 import Updates from '../screens/Updates';
 import Calls from '../screens/Calls';
 import Communities from '../screens/Communities';
-import messages from '../screens/messages';
+import chats from '../screens/Chats';
+import Messages from '../screens/messages';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,8 +24,8 @@ const MainNavigator = () => {
       <Stack.Screen name="Chat" component={chats} /> 
       <Stack.Screen name="Updates" component={Updates} />
       <Stack.Screen name="calls" component={Calls} />
-      <Stack.Screen name="Community" component={communities} />
-      <Stack.Screen name="messages" component={messages} />
+      <Stack.Screen name="Community" component={Communities} />
+      <Stack.Screen name="messages" component={Messages} />
     </Stack.Navigator>
   );
 };
