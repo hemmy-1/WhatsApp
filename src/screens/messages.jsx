@@ -78,7 +78,7 @@ export default function Messages({ route }) {
               >
                 <Menu.Item
                   leadingIcon="phone-outline"
-                  onPress={() => { }}
+                  onPress={() => navigation.navigate('Dailycall')}
                   title="Voice call"
                   titleStyle={styles.menuText}
                 />
