@@ -4,17 +4,71 @@ import { SafeAreaProvider, SafeAreaView, } from 'react-native-safe-area-context'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
-import Sound from 'react-native-sound';
+import { Audio } from 'expo-av';
+import { useEffect,useRef,useState } from 'react';
 
 const Dailycall = () => {
-  const ringingSound = new Sound('ringtone.mp3', Sound.MAIN_BUNDLE, (error) => {
-    if (error) return console.log(error)
-      ringingSound.setNumberOfLoops(-1)// -1 = loop forever
-    ringingSound.play
-  })
-  //Stop it 
-  ringingSound.stop()
-  ringingSound.release()
+
+  const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
+  const soundRef = useRef(null)
+
+  // Play ringing sound when screen mounts
+  useEffect(() => {
+    setupAudio()
+    playRingingSound()
+
+    // Cleanup when component unmounts
+    return () => {
+      stopRingingSound()
+    }
+  }, [])
+
+  const setupAudio = async () => {
+    // Allow audio to play even when phone is on silent mode
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    })
+  }
+
+  const playRingingSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('./assets/ringtone.mp3'), // put your mp3 in assets folder
+        { 
+          isLooping: true, // loop the ringing sound
+          volume: 1.0 
+        }
+      )
+      soundRef.current = sound
+      await sound.playAsync()
+    } catch (error) {
+      console.log('Error playing sound:', error)
+    }
+  }
+
+  const stopRingingSound = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync()
+      await soundRef.current.unloadAsync()
+      soundRef.current = null
+    }
+  }
+
+  const handleEndCall = async () => {
+    await stopRingingSound()
+    setCallStatus('ended')
+    // navigation.goBack() or whatever you use
+  }
+
+  const handleAnswerCall = async () => {
+    await stopRingingSound()
+    setCallStatus('connected')
+    // start actual call logic with WebRTC here
+  }
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
