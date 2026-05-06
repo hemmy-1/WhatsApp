@@ -23,7 +23,6 @@ export default function Messages({ route }) {
 
   const navigation = useNavigation()
   const { MainChat } = route.params
-  console.log("The message is", MainChat)
 
 
   return (

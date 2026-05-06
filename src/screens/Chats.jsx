@@ -289,14 +289,16 @@ export default function Chats() {
                                 renderItem={MainChatView}
                                 keyExtractor={item => item.id} />
                         </View>
-
-
-
-
-
-
-
                     </View>
+
+                    <TouchableOpacity onPress={()=> navigation.navigate('SelectContact')}
+                    style={{backgroundColor: '#25D366', height:55, width:55,
+                        borderWidth:1, borderRadius:10, position:'relative',
+                        top:180, left:390, alignItems:'center', justifyContent:'center'
+                    }}>
+                        <MaterialCommunityIcons name="message-plus-outline" size={24} color="black" />
+
+                    </TouchableOpacity>
 
                     <Modal
                         animationType="fade"

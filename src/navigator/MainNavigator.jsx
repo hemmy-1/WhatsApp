@@ -10,6 +10,7 @@ import Communities from '../screens/Communities';
 import Messages from '../screens/Messages';
 import Profile from '../screens/Profile';
 import Dailycall from '../screens/Dailycall';
+import SelectContact from '../screens/SelectContact';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const MainNavigator = () => {
       <Stack.Screen name="Messages" component={Messages} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Dailycall" component={Dailycall} />
+      <Stack.Screen name="SelectContact" component={SelectContact} />
       
     </Stack.Navigator>
   );
