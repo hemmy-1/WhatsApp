@@ -9,7 +9,7 @@ import { useEffect,useRef,useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Dailycall = () => {
-const navigation =useNavigation
+
   const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
   const soundRef = useRef(null)
   const navigation = useNavigation()
