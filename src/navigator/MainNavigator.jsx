@@ -28,6 +28,8 @@ const MainNavigator = () => {
       <Stack.Screen name="Community" component={Communities} />
       <Stack.Screen name="Messages" component={Messages} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Dailycall" component={Dailycall} />
+      
     </Stack.Navigator>
   );
 };
