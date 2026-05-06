@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView, } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -6,11 +6,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Audio } from 'expo-av';
 import { useEffect,useRef,useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Dailycall = () => {
 
   const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
   const soundRef = useRef(null)
+  const navigation = useNavigation()
 
   // Play ringing sound when screen mounts
   useEffect(() => {
@@ -115,11 +118,12 @@ const Dailycall = () => {
             <Ionicons name="mic-off-sharp" size={24} color="white" />
           </View>
 
-          <View style={{
+          <TouchableOpacity onPress={()=> navigation.goBack()}
+          style={{
             height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
           }}>
 
-          </View>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
