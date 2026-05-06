@@ -7,10 +7,6 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { Audio } from 'expo-av';
 import { useEffect,useRef,useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD
-=======
-
->>>>>>> 14adc15a77447e67f756806b8a8a0c4be6d6b4f1
 
 const Dailycall = () => {
 const navigation =useNavigation
@@ -121,11 +117,7 @@ const navigation =useNavigation
             <Ionicons name="mic-off-sharp" size={24} color="white" />
           </View>
 
-<<<<<<< HEAD
-          <TouchableOpacity onPress={() =>}
-=======
           <TouchableOpacity onPress={()=> navigation.goBack()}
->>>>>>> 14adc15a77447e67f756806b8a8a0c4be6d6b4f1
           style={{
             height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
           }}>
