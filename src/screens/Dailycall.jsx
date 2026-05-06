@@ -4,8 +4,71 @@ import { SafeAreaProvider, SafeAreaView, } from 'react-native-safe-area-context'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
+import { Audio } from 'expo-av';
+import { useEffect,useRef,useState } from 'react';
 
 const Dailycall = () => {
+
+  const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
+  const soundRef = useRef(null)
+
+  // Play ringing sound when screen mounts
+  useEffect(() => {
+    setupAudio()
+    playRingingSound()
+
+    // Cleanup when component unmounts
+    return () => {
+      stopRingingSound()
+    }
+  }, [])
+
+  const setupAudio = async () => {
+    // Allow audio to play even when phone is on silent mode
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    })
+  }
+
+  const playRingingSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/audio/iphoneTone.mp3'), // put your mp3 in assets folder
+        { 
+          isLooping: true, // loop the ringing sound
+          volume: 1.0 
+        }
+      )
+      soundRef.current = sound
+      await sound.playAsync()
+    } catch (error) {
+      console.log('Error playing sound:', error)
+    }
+  }
+
+  const stopRingingSound = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync()
+      await soundRef.current.unloadAsync()
+      soundRef.current = null
+    }
+  }
+
+  const handleEndCall = async () => {
+    await stopRingingSound()
+    setCallStatus('ended')
+    // navigation.goBack() or whatever you use
+  }
+
+  const handleAnswerCall = async () => {
+    await stopRingingSound()
+    setCallStatus('connected')
+    // start actual call logic with WebRTC here
+  }
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -34,27 +97,29 @@ const Dailycall = () => {
         {/*Down layer*/}
         <View style={styles.downcontainer}>
 
-<View style={styles.boxcontainer}>
-<Entypo name="dots-three-horizontal" size={24} color="white" />
-</View>
+          <View style={styles.boxcontainer}>
+            <Entypo name="dots-three-horizontal" size={24} color="white" />
+          </View>
 
-<View style={styles.boxcontainer}>
-<Ionicons name="videocam" size={24} color="black" />
-</View>
+          <View style={styles.boxcontainer}>
+            <Ionicons name="videocam" size={24} color="black" />
+          </View>
 
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"white",justifyContent:"center", alignItems:"center"
-  }}>
+          <View style={{
+            height: 60, width: 60, borderRadius: 60, backgroundColor: "white", justifyContent: "center", alignItems: "center"
+          }}>
 
-</View>
+          </View>
 
-<View style={styles.boxcontainer}>
-<Ionicons name="mic-off-sharp" size={24} color="white" />
-</View> 
+          <View style={styles.boxcontainer}>
+            <Ionicons name="mic-off-sharp" size={24} color="white" />
+          </View>
 
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"red",justifyContent:"center", alignItems:"center"
-  }}>
+          <View style={{
+            height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
+          }}>
 
-</View>
+          </View>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -77,19 +142,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  downcontainer:{
-    backgroundColor:"gray",
-    height:77,
-    borderRadius:25,
-    alignItems:"center",
-          justifyContent:"space-evenly",
-          flexDirection:"row",
+  downcontainer: {
+    backgroundColor: "gray",
+    height: 77,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    flexDirection: "row",
   },
-  boxcontainer:{height:60,
-    width:60,
-    borderRadius:60,
-    backgroundColor:"black",
-    justifyContent:"center",
-    alignItems:"center"
+  boxcontainer: {
+    height: 60,
+    width: 60,
+    borderRadius: 60,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center"
   },
 })

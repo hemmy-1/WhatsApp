@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useNavigation } from "@react-navigation/native";
 
 
 const Data = [
@@ -83,12 +84,35 @@ const DataCall = [
         callin: 'Incomming',
         time: '12:00 PM',
     },
+    {
+        id: '8',
+        image: require('../assets/make1 (8).jpg'),
+        name: 'posh',
+        callin: 'Incomming',
+        time: '12:30 PM',
+    },
+    {
+        id: '9',
+        image: require('../assets/make1 (7).jpg'),
+        name: 'ferrari',
+        callin: 'Missed',
+        time: '12:40 PM',
+    },
+    {
+        id: '10',
+        image: require('../assets/make1 (7).jpg'),
+        name: 'BMW',
+        callin: 'Incomming',
+        time: '12:50 PM',
+    },
 ]
 
 
 
 
 const Calls = () => {
+    const navigation = useNavigation();
+
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
@@ -113,7 +137,7 @@ const Calls = () => {
                 <View>
                     <FlatList
                         data={Data}
-                        renderItem={({ item }) => (<TouchableOpacity style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
+                        renderItem={({ item }) => (<TouchableOpacity onPress={() => navigation.navigate('Dailycall')} style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
                             <View style={styles.callicons}>
                                 <Ionicons name={item.icons} size={24} color="white" />
                             </View>
@@ -129,10 +153,12 @@ const Calls = () => {
                 <Text style={{ color: "white", fontSize: 18, }}>Recent</Text>
 
 
-                <View>
+                <View style={{ flex: 1 }}>
                     <FlatList
                         data={DataCall}
-                        renderItem={({ item }) => (<TouchableOpacity style={styles.callContainer}>
+                        renderItem={({ item }) => (<TouchableOpacity
+                            onPress={() => navigation.navigate('Dailycall')}
+                            style={styles.callContainer}>
 
                             <Image source={item.image}
                                 style={styles.imageCall} />
@@ -159,7 +185,7 @@ const Calls = () => {
                         </TouchableOpacity>)}
                         keyExtractor={item => item.id}
                     />
-                    
+
                 </View>
             </SafeAreaView >
         </SafeAreaProvider >
@@ -195,8 +221,8 @@ const styles = StyleSheet.create({
     callContainer: {
         marginTop: 15,
         flexDirection: "row",
-        gap:18,
-        marginBottom:10,
+        gap: 18,
+        marginBottom: 10,
 
     },
     imageCall: {
