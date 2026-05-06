@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList} from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+
 
 
 export default function Profile({ route }) {
@@ -19,7 +21,107 @@ export default function Profile({ route }) {
 
 
     const navigation = useNavigation()
-    // const { MainChat } = route.params
+    const { MainChat } = route.params
+
+    console.log('hereeee', MainChat)
+
+    const Data = [
+        {
+            id : '1',
+            img: require('../assets/vic.png')
+        },
+        {
+            id : '2',
+            img: require('../assets/por.png')
+        },
+        {
+            id : '3',
+            img: require('../assets/updates.png')
+        },
+        {
+            id : '4',
+            img: require('../assets/bat.png')
+        },
+        {
+            id : '5',
+            img: require('../assets/ars.png')
+        },
+        {
+            id : '6',
+            img: require('../assets/arss.png')
+        },
+        {
+            id : '7',
+            img: require('../assets/arsss.jpg')
+        },
+        {
+            id : '8',
+            img: require('../assets/bmw.jpg')
+        },
+        {
+            id : '9',
+            img: require('../assets/make1 (3).jpg')
+        },
+        {
+            id : '10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id : '11',
+            img: require('../assets/myimage.png')
+        },
+    ]
+
+
+    const Data2 = [
+        {
+            id: '1',
+            name: 'Manage Storage',
+            note: '200.1 MB',
+            Ionicons: "ellipsis-vertical"
+        },
+        {
+            id: '2',
+            name: 'Notification',
+            Ionicons: "images-outline"
+        },
+        {
+            id: '3',
+            name: 'Media visibility',
+            note: '200.1 MB',
+            Ionicons: "image-outline"
+        },
+        {
+            id: '4',
+            name: 'Encryption',
+            note: 'Message and calls are end-to-end encrypted. Tap to verify',
+            Ionicons: "lock-closed-outline"
+        },
+        {
+            id: '5',
+            name: 'Disappering meddages',
+            note: '200.1 MB',
+            Ionicons: "ellipsis-vertical"
+        },
+        {
+            id: '6',
+            name: 'Chat lock',
+            note: 'Lock and hide this chat on this device',
+            Ionicons: "ellipsis-vertical"
+        },
+        {
+            id: '7',
+            name: 'Advance chat privacy',
+            note: 'off',
+            Ionicons: "ellipsis-vertical"
+        },
+        {
+            id: '8',
+            name: 'Transcripts',
+            note: 'English',
+            Ionicons: "ellipsis-vertical"
+        },
+    ]
 
 
     return (
@@ -29,17 +131,18 @@ export default function Profile({ route }) {
 
                     <View style={styles.headerRow}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Ionicons name="arrow-back" size={35} color="white" />
+                            <Ionicons name="arrow-back" size={30} color="white" />
                         </TouchableOpacity>
 
 
-                        <View style={{ flexDirection: 'column', alignItems:'center', marginTop:10, gap:5 }}>
+                        <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10, gap: 5 }}>
 
-                            <Image source={require('../assets/bat.png')}
+                            <Image source={MainChat.img}
                                 style={{ height: 120, width: 120, borderRadius: 100 }} />
-                            <Text style={styles.userName}>You fit send me money</Text>
-                            <Text style={{color:'white', fontSize:18,
-                                fontWeight:'300'
+                            <Text style={styles.userName}>{MainChat.name}</Text>
+                            <Text style={{
+                                color: 'white', fontSize: 18,
+                                fontWeight: '300'
                             }}>+234 915 254 3383</Text>
                         </View>
 
@@ -75,6 +178,82 @@ export default function Profile({ route }) {
 
                     </View>
 
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, }}>
+                        <TouchableOpacity style={{
+                            height: 65, width: 140,
+                            borderWidth: 1, borderColor: '#ffffff46',
+                            borderRadius: 10, justifyContent: 'center', alignItems: 'center'
+                        }}>
+                            <Ionicons name="call-outline" size={24} color="#25D366" />
+                            <Text style={{ color: 'white' }}>
+                                Audio
+                            </Text>
+
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{
+                            height: 65, width: 140,
+                            borderWidth: 1, borderColor: '#ffffff46',
+                            borderRadius: 10, justifyContent: 'center', alignItems: 'center'
+                        }}>
+                            <Ionicons name="videocam-outline" size={30} color="#25D366" />
+                            <Text style={{ color: 'white' }}>
+                                Video
+                            </Text>
+
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{
+                            height: 65, width: 140,
+                            borderWidth: 1, borderColor: '#ffffff46',
+                            borderRadius: 10, justifyContent: 'center', alignItems: 'center'
+                        }}>
+                            <EvilIcons name="search" size={24} color="#25D366" />
+                            <Text style={{ color: 'white' }}>
+                                Search
+                            </Text>
+
+                        </TouchableOpacity>
+                    </View>
+
+
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingHorizontal: 15,
+                        marginTop: 20
+                    }}>
+                        <Text style={{ color: '#888', fontSize: 16 }}>Media, links, and docs</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ color: '#888', marginRight: 5 }}>127</Text>
+                            <Entypo name="chevron-right" size={20} color="#888" />
+                        </View>
+                    </View>
+
+
+                    <View>
+                        <FlatList
+                            data={Data}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item) => item.id}
+                            contentContainerStyle={{ paddingLeft: 15, paddingVertical: 10 }}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity style={{ marginRight: 10 }}>
+                                    <Image
+                                        source={item.img}
+                                        style={{
+                                            width: 100,
+                                            height: 100,
+                                            borderRadius: 10,
+                                            backgroundColor: '#2f2e2e'
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
+
+
+
 
 
 
@@ -108,7 +287,7 @@ export default function Profile({ route }) {
 const styles = StyleSheet.create({
     container1: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#0b0d10',
         paddingHorizontal: 10,
 
     },

@@ -23,7 +23,7 @@ export default function Messages({ route }) {
 
   const navigation = useNavigation()
   const { MainChat } = route.params
-  // console.log("The message is", MainChat.message)
+  console.log("The message is", MainChat)
 
 
   return (
@@ -49,7 +49,7 @@ export default function Messages({ route }) {
 
 
 
-            <TouchableOpacity onPress={()=> navigation.navigate('Profile')}
+            <TouchableOpacity onPress={()=> navigation.navigate('Profile', {MainChat})}
             style={{
               height: '100%', width: '50%',
               justifyContent: 'center', backgroundColor: 'black'

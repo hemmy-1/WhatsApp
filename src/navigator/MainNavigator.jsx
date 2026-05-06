@@ -7,7 +7,6 @@ import Chats from '../screens/Chats';
 import Updates from '../screens/Updates';
 import Calls from '../screens/Calls';
 import Communities from '../screens/Communities';
-import chats from '../screens/Chats';
 import Messages from '../screens/messages';
 import Profile from '../screens/Profile';
 
@@ -22,7 +21,7 @@ const MainNavigator = () => {
          CRITICAL FIX: The 'component' must match the s
          variable name you used in the import above!
       */}
-      <Stack.Screen name="Chat" component={chats} /> 
+      <Stack.Screen name="Chat" component={Chats} /> 
       <Stack.Screen name="Updates" component={Updates} />
       <Stack.Screen name="calls" component={Calls} />
       <Stack.Screen name="Community" component={Communities} />

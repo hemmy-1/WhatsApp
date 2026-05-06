@@ -9,7 +9,7 @@ import { Menu, PaperProvider, Divider } from 'react-native-paper';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 
-export default function chats() {
+export default function Chats() {
 
     const [visible, setVisible] = useState(false);
     const openMenu = () => setVisible(true);
