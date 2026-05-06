@@ -133,7 +133,7 @@ export default function Chats() {
 
 
 
-                <TouchableOpacity onPress={() => navigation.navigate('messages', { MainChat: item })}
+                <TouchableOpacity onPress={() => navigation.navigate('Messages', { MainChat: item })}
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
