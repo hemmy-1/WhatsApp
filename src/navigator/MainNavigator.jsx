@@ -7,24 +7,36 @@ import Chats from '../screens/Chats';
 import Updates from '../screens/Updates';
 import Calls from '../screens/Calls';
 import Communities from '../screens/Communities';
+<<<<<<< HEAD
 import messages from '../screens/messages';
 import Dailycall from '../screens/Dailycall';
+=======
+import Messages from '../screens/messages';
+import Profile from '../screens/Profile';
+>>>>>>> d945ba1ec064eb29e1859bf307263283937ac112
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {/* This holds your Bottom Tabs */}
       <Stack.Screen name="Tab" component={TabNavigator} />
       
-      {/* Other screens you can navigate to from the tabs */}
-      <Stack.Screen name="Chat" component={Chats} />
+      {/* 
+         CRITICAL FIX: The 'component' must match the s
+         variable name you used in the import above!
+      */}
+      <Stack.Screen name="Chat" component={Chats} /> 
       <Stack.Screen name="Updates" component={Updates} />
       <Stack.Screen name="calls" component={Calls} />
       <Stack.Screen name="Community" component={Communities} />
+<<<<<<< HEAD
       <Stack.Screen name="messages" component={messages} />
       <Stack.Screen name="Dailycall" component={Dailycall}/>
+=======
+      <Stack.Screen name="messages" component={Messages} />
+      <Stack.Screen name="Profile" component={Profile} />
+>>>>>>> d945ba1ec064eb29e1859bf307263283937ac112
     </Stack.Navigator>
   );
 };
