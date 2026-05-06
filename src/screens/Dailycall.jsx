@@ -37,7 +37,7 @@ const Dailycall = () => {
   const playRingingSound = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
-        require('./assets/ringtone.mp3'), // put your mp3 in assets folder
+        require('../assets/audio/iphoneTone.mp3'), // put your mp3 in assets folder
         { 
           isLooping: true, // loop the ringing sound
           volume: 1.0 
