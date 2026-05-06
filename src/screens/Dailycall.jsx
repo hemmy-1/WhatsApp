@@ -4,8 +4,17 @@ import { SafeAreaProvider, SafeAreaView, } from 'react-native-safe-area-context'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
+import Sound from 'react-native-sound';
 
 const Dailycall = () => {
+  const ringingSound = new Sound('ringtone.mp3', Sound.MAIN_BUNDLE, (error) => {
+    if (error) return console.log(error)
+      ringingSound.setNumberOfLoops(-1)// -1 = loop forever
+    ringingSound.play
+  })
+  //Stop it 
+  ringingSound.stop()
+  ringingSound.release()
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -34,27 +43,29 @@ const Dailycall = () => {
         {/*Down layer*/}
         <View style={styles.downcontainer}>
 
-<View style={styles.boxcontainer}>
-<Entypo name="dots-three-horizontal" size={24} color="white" />
-</View>
+          <View style={styles.boxcontainer}>
+            <Entypo name="dots-three-horizontal" size={24} color="white" />
+          </View>
 
-<View style={styles.boxcontainer}>
-<Ionicons name="videocam" size={24} color="black" />
-</View>
+          <View style={styles.boxcontainer}>
+            <Ionicons name="videocam" size={24} color="black" />
+          </View>
 
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"white",justifyContent:"center", alignItems:"center"
-  }}>
+          <View style={{
+            height: 60, width: 60, borderRadius: 60, backgroundColor: "white", justifyContent: "center", alignItems: "center"
+          }}>
 
-</View>
+          </View>
 
-<View style={styles.boxcontainer}>
-<Ionicons name="mic-off-sharp" size={24} color="white" />
-</View> 
+          <View style={styles.boxcontainer}>
+            <Ionicons name="mic-off-sharp" size={24} color="white" />
+          </View>
 
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"red",justifyContent:"center", alignItems:"center"
-  }}>
+          <View style={{
+            height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
+          }}>
 
-</View>
+          </View>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -77,19 +88,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  downcontainer:{
-    backgroundColor:"gray",
-    height:77,
-    borderRadius:25,
-    alignItems:"center",
-          justifyContent:"space-evenly",
-          flexDirection:"row",
+  downcontainer: {
+    backgroundColor: "gray",
+    height: 77,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    flexDirection: "row",
   },
-  boxcontainer:{height:60,
-    width:60,
-    borderRadius:60,
-    backgroundColor:"black",
-    justifyContent:"center",
-    alignItems:"center"
+  boxcontainer: {
+    height: 60,
+    width: 60,
+    borderRadius: 60,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center"
   },
 })
