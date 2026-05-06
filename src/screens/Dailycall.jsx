@@ -4,7 +4,6 @@ import { SafeAreaProvider, SafeAreaView, } from 'react-native-safe-area-context'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
-<<<<<<< HEAD
 import { Audio } from 'expo-av';
 import { useEffect,useRef,useState } from 'react';
 
@@ -70,10 +69,6 @@ const Dailycall = () => {
     setCallStatus('connected')
     // start actual call logic with WebRTC here
   }
-=======
-
-const Dailycall = () => {
->>>>>>> d945ba1ec064eb29e1859bf307263283937ac112
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -102,7 +97,6 @@ const Dailycall = () => {
         {/*Down layer*/}
         <View style={styles.downcontainer}>
 
-<<<<<<< HEAD
           <View style={styles.boxcontainer}>
             <Entypo name="dots-three-horizontal" size={24} color="white" />
           </View>
@@ -126,29 +120,6 @@ const Dailycall = () => {
           }}>
 
           </View>
-=======
-<View style={styles.boxcontainer}>
-<Entypo name="dots-three-horizontal" size={24} color="white" />
-</View>
-
-<View style={styles.boxcontainer}>
-<Ionicons name="videocam" size={24} color="black" />
-</View>
-
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"white",justifyContent:"center", alignItems:"center"
-  }}>
-
-</View>
-
-<View style={styles.boxcontainer}>
-<Ionicons name="mic-off-sharp" size={24} color="white" />
-</View> 
-
-<View style={{height:60,width:60,borderRadius:60,backgroundColor:"red",justifyContent:"center", alignItems:"center"
-  }}>
-
-</View>
->>>>>>> d945ba1ec064eb29e1859bf307263283937ac112
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -171,7 +142,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-<<<<<<< HEAD
   downcontainer: {
     backgroundColor: "gray",
     height: 77,
@@ -187,21 +157,5 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center"
-=======
-  downcontainer:{
-    backgroundColor:"gray",
-    height:77,
-    borderRadius:25,
-    alignItems:"center",
-          justifyContent:"space-evenly",
-          flexDirection:"row",
-  },
-  boxcontainer:{height:60,
-    width:60,
-    borderRadius:60,
-    backgroundColor:"black",
-    justifyContent:"center",
-    alignItems:"center"
->>>>>>> d945ba1ec064eb29e1859bf307263283937ac112
   },
 })
