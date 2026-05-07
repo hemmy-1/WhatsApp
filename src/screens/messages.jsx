@@ -235,7 +235,7 @@ export default function Messages({ route }) {
 const styles = StyleSheet.create({
   container1: {
     flex: 0.11,
-    backgroundColor: 'black',
+    backgroundColor: '#0b141a',
     paddingHorizontal: 10,
 
   },

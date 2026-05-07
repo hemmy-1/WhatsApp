@@ -384,7 +384,7 @@ export default function Profile({ route }) {
 const styles = StyleSheet.create({
     container1: {
         flex: 1,
-        backgroundColor: '#0b0d10',
+        backgroundColor: '#0b141a',
         paddingHorizontal: 10,
 
     },

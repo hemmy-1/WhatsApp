@@ -354,7 +354,7 @@ export default function Chats() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#0b141a',
         paddingTop: 10,
         paddingHorizontal: 10
     },

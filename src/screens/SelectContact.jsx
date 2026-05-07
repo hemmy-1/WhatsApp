@@ -41,7 +41,7 @@ export default function SelectContact({ navigation }) {
     <View>
       <ActionItem icon="people" label="New group" color="#00a884" />
       <ActionItem icon="person-add" label="New contact" color="#00a884" showQR />
-      <ActionItem icon="groups" label="New community" color="#00a884" isMaterial />
+      <ActionItem icon="group" label="New community" color="#00a884" isMaterial />
       <Text style={styles.sectionHeader}>Contacts on WhatsApp</Text>
     </View>
   );
