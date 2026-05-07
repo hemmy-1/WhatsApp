@@ -232,7 +232,7 @@ export default Calls
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0b1014',
+        backgroundColor: '#0b141a',
         paddingTop: 10,
         padding: 10,
         gap: 15,

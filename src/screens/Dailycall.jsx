@@ -134,7 +134,7 @@ export default Dailycall
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#0b141a",
     padding: 20,
   },
   box: {
