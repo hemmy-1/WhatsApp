@@ -11,18 +11,16 @@ import Messages from '../screens/Messages';
 import Profile from '../screens/Profile';
 import Dailycall from '../screens/Dailycall';
 import SelectContact from '../screens/SelectContact';
+import SplashScreen from '../screens/SplashScreen';
+import Photos from '../screens/Photos';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Splash' screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tab" component={TabNavigator} />
-      
-      {/* 
-         CRITICAL FIX: The 'component' must match the s
-         variable name you used in the import above!
-      */}
+      <Stack.Screen name="Splash" component={SplashScreen} /> 
       <Stack.Screen name="Chat" component={Chats} /> 
       <Stack.Screen name="Updates" component={Updates} />
       <Stack.Screen name="calls" component={Calls} />
@@ -31,6 +29,7 @@ const MainNavigator = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Dailycall" component={Dailycall} />
       <Stack.Screen name="SelectContact" component={SelectContact} />
+      <Stack.Screen name="Photos" component={Photos} />
       
     </Stack.Navigator>
   );

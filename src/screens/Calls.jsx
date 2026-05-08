@@ -150,7 +150,7 @@ const Calls = () => {
                                         style={{ }} 
                                         />
                         </Menu>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=> navigation.navigate ('SelectContact')}>
                             <Entypo name="circle-with-plus" size={24} color="green" />
                         </TouchableOpacity>
                     </View>

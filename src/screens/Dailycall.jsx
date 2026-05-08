@@ -42,7 +42,7 @@ const Dailycall = () => {
         require('../assets/audio/iphoneTone.mp3'), // put your mp3 in assets folder
         { 
           isLooping: true, // loop the ringing sound
-          volume: 1.0 
+          volume: 1.0, 
         }
       )
       soundRef.current = sound
