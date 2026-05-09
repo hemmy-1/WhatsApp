@@ -5,6 +5,8 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 
 
@@ -83,7 +85,7 @@ export default function Settings() {
 
   const DataView = ({ item }) => {
     return (
-      <View>
+      <TouchableOpacity>
         <View style={{
           flexDirection: 'row', gap: 30, marginTop: 30,
           paddingHorizontal: 20, alignItems: 'center', flex: 1
@@ -101,44 +103,77 @@ export default function Settings() {
 
         </View>
 
-      </View>
+      </TouchableOpacity>
     )
   }
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        {/* HEADER: Fixed height, no 100% height */}
-        <View style={styles.header}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+
+        <View style={{
+          height: 60, width: '100%',
+          flexDirection: 'row', justifyContent: 'space-between',
+          alignItems: 'center', paddingHorizontal: 15
+        }}>
+          <View style={{
+            flexDirection: 'row', alignItems: 'center', gap: 10
+          }}>
+
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="arrow-back" size={25} color="white" />
             </TouchableOpacity>
             <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Settings</Text>
           </View>
+
           <EvilIcons name="search" size={30} color="white" />
+
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/* PROFILE SECTION: Use padding instead of fixed height */}
-          <View style={styles.profileSection}>
-            <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
-              <Image source={require('../assets/por.png')} style={styles.profilePic} />
+        <ScrollView  >
+
+
+          <View style={{
+            width: '100%', borderBottomColor: '#88888844',
+            borderTopColor: '#88888844', paddingVertical: 20,
+            borderTopWidth: 0.5, borderBottomWidth: 0.5, justifyContent: 'space-between',
+            paddingHorizontal: 15, flexDirection: 'row', alignItems: 'center',
+          }}>
+
+            <View style={{ flexDirection: 'row', gap: 20 }}>
+
               <View>
-                <Text style={{ color: 'white', fontSize: 20 }}>(Unknown)</Text>
-                <View style={styles.badge}>
-                  <Text style={{ color: '#888' }}>Unknown</Text>
-                </View>
+
+                <Image source={require('../assets/por.png')}
+                  style={{ height: 60, width: 60, borderRadius: 50 }} />
               </View>
+              <View>
+                <Text style={{ color: 'white', fontSize: 20 }}>
+                  (Unknown)
+                </Text>
+                <View style={{
+                  height: 25, width: 100, borderWidth: 1, borderColor: '#888888', borderRadius: 10,
+                  marginTop: 5, justifyContent: 'center', alignItems: 'center'
+                }}>
+
+                  <Text style={{ color: '#888' }}>
+                    Unknown
+                  </Text>
+                </View>
+
+              </View>
+
             </View>
+
             <View style={{ flexDirection: 'row', gap: 15 }}>
               <Ionicons name="qr-code-outline" size={25} color="white" />
               <Ionicons name="add-circle-outline" size={25} color="#25D366" />
+
             </View>
           </View>
 
-          {/* SETTINGS LIST: No flex: 1 needed here */}
-          <View>
+          <View style={{ flex: 1 }}>
+
             <FlatList
               data={Data}
               renderItem={DataView}
@@ -147,22 +182,88 @@ export default function Settings() {
             />
           </View>
 
-          {/* META SECTION */}
-          <View style={styles.metaSection}>
+          <TouchableOpacity style={{
+            height: 120, width: '100%', borderBottomColor: '#88888844',
+            borderTopColor: '#88888844',
+            borderTopWidth: 0.5, borderBottomWidth: 0.5,
+            paddingHorizontal: 20, flexDirection: 'column', alignContent: 'center',
+            justifyContent: 'center'
+          }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+
               <FontAwesome6 name="meta" size={20} color="white" />
-              <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Meta</Text>
+              <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+                Meta
+              </Text>
             </View>
             <Text style={{ color: 'white', fontSize: 18 }}>Accounts Center</Text>
-            <Text style={{ color: '#888', fontSize: 16 }}>Control your experience across WhatsApp...</Text>
+            <Text style={{ color: '#888', fontSize: 16 }}>Control your experience across whatsApp, Instagram and more</Text>
+          </TouchableOpacity>
+
+
+
+          <View style={{ paddingHorizontal: 15, gap:30, marginTop:20 }}>
+            <Text style={{ color: '#888', fontSize: 16 }}>Also from Meta</Text>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+
+
+              <TouchableOpacity style={{ alignItems: 'center' }}>
+                <View style={{
+                  height: 60, width: 60, backgroundColor: '#0c1821', justifyContent: 'center',
+                  alignItems: 'center', borderRadius: 30
+                }}>
+                  <Entypo name="instagram" size={25} color="white" />
+                </View>
+                <Text style={{ color: '#888', fontSize: 16 }}>Instagram</Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={{ alignItems: 'center' }}>
+                <View style={{
+                  height: 60, width: 60, backgroundColor: '#0c1821', justifyContent: 'center',
+                  alignItems: 'center', borderRadius: 30
+                }}>
+                  <FontAwesome5 name="facebook" size={25} color="white" />
+                </View>
+                <Text style={{ color: '#888', fontSize: 16 }}>Facebook</Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={{ alignItems: 'center' }}>
+                <View style={{
+                  height: 60, width: 60, backgroundColor: '#0c1821', justifyContent: 'center',
+                  alignItems: 'center', borderRadius: 30
+                }}>
+                  <FontAwesome6 name="threads" size={25} color="white" />
+                </View>
+                <Text style={{ color: '#888', fontSize: 16 }}>Threads</Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={{alignItems:'center'}}>
+                <View style={{
+                  height: 60, width: 60, backgroundColor: '#0c1821', justifyContent: 'center',
+                  alignItems: 'center', borderRadius: 30
+                }}>
+                  <FontAwesome6 name="meta" size={25} color="white" />
+                </View>
+                <Text style={{ color: '#888', fontSize: 16 }}>Meta AI App</Text>
+              </TouchableOpacity>
+
+
+
+
+
+            </View>
           </View>
 
-          {/* Extra padding at bottom for scroll room */}
-          <View style={{ height: 40 }} />
+
+          <View style={{ height: 50 }} />
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
-  );
+  )
 }
 
 
@@ -171,45 +272,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0b141a'
   },
-  header: {
-    height: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15
-  },
-  profileSection: {
-    paddingVertical: 20,
-    width: '100%',
-    borderBottomColor: '#88888844',
-    borderTopColor: '#88888844',
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  profilePic: {
-    height: 60,
-    width: 60,
-    borderRadius: 30
-  },
-  badge: {
-    height: 25,
-    width: 80,
-    borderWidth: 1,
-    borderColor: '#888888',
-    borderRadius: 12,
-    marginTop: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  metaSection: {
-    paddingVertical: 25,
-    paddingHorizontal: 20,
-    borderTopColor: '#88888844',
-    borderTopWidth: 0.5,
+  headcontainer: {
+
   }
-});
+})
