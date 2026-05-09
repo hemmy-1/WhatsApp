@@ -4,6 +4,8 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Menu, PaperProvider, Divider } from 'react-native-paper';
 import Entypo from '@expo/vector-icons/Entypo';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
@@ -12,6 +14,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 export default function Communities() {
 
 
+  const navigation = useNavigation()
   const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
@@ -39,13 +42,13 @@ export default function Communities() {
       titleimg: require('../assets/eng.png'),
       data: [
         {
-          id: '1', name: 'Announcements', note: 'this is an important information', time: '11:11', img: require('../assets/announ.png')
+          id: '5', name: 'Announcements', note: 'this is an important information', time: '11:11', img: require('../assets/announ.png')
         },
         {
-          id: '2', name: '400 LEVEL FENG 🎓', note: '+234 567 890 0987:  Okay', time: '11:11', img: require('../assets/bmw.jpg')
+          id: '6', name: '400 LEVEL FENG 🎓', note: '+234 567 890 0987:  Okay', time: '11:11', img: require('../assets/bmw.jpg')
         },
         {
-          id: '4', name: 'FENG 🎓', note: '+234 567 890 0987:  We are about to start', time: '11:11', img: require('../assets/arsss.jpg')
+          id: '7', name: 'FENG 🎓', note: '+234 567 890 0987:  We are about to start', time: '11:11', img: require('../assets/arsss.jpg')
         }
       ]
     },
@@ -54,13 +57,13 @@ export default function Communities() {
       titleimg: require('../assets/eng.png'),
       data: [
         {
-          id: '1', name: 'Announcements', note: 'this is an important information', time: '11:11', img: require('../assets/announ.png')
+          id: '8', name: 'Announcements', note: 'this is an important information', time: '11:11', img: require('../assets/announ.png')
         },
         {
-          id: '2', name: '400 LEVEL FENG 🎓', note: '+234 567 890 0987:  Okay', time: '11:11', img: require('../assets/bmw.jpg')
+          id: '9', name: '400 LEVEL FENG 🎓', note: '+234 567 890 0987:  Okay', time: '11:11', img: require('../assets/bmw.jpg')
         },
         {
-          id: '4', name: 'FENG 🎓', note: '+234 567 890 0987:  We are about to start', time: '11:11', img: require('../assets/arsss.jpg')
+          id: '10', name: 'FENG 🎓', note: '+234 567 890 0987:  We are about to start', time: '11:11', img: require('../assets/arsss.jpg')
         }
       ]
     },
@@ -156,7 +159,7 @@ export default function Communities() {
               <Menu.Item
                 title="Settings"
                 titleStyle={{ color: 'white' }}
-                onPress={() => { }}
+                onPress={() => navigation.navigate('Settings')}
               />
             </Menu>
           </View>
@@ -175,19 +178,21 @@ export default function Communities() {
             <Text style={{ color: 'white', fontSize: 16 }}> new community</Text>
           </View>
 
-          <SectionList
-            sections={CommunityList}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            renderSectionHeader={renderSectionHeader}
-            // Add this line
-            renderSectionFooter={renderSectionFooter}
-            // This removes the gap between sections so they look like one list
-            SectionSeparatorComponent={() => <View style={{ height: 1, backgroundColor: '#1f2c34' }} />}
-          />
 
+          <View style={{flex:1}}>
 
+            <SectionList
+              sections={CommunityList}
+              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
+              renderSectionHeader={renderSectionHeader}
+              // Add this line
+              renderSectionFooter={renderSectionFooter}
+              // This removes the gap between sections so they look like one list
+              SectionSeparatorComponent={() => <View style={{ height: 1, backgroundColor: '#1f2c34' }} />}
+            />
 
+          </View>
 
         </SafeAreaView>
       </SafeAreaProvider>

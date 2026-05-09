@@ -188,7 +188,7 @@ export default function Chats() {
 
                     <View style={{
                         justifyContent: 'space-between', flexDirection: 'row',
-                        alignContent: 'center', alignItems: 'center', marginTop:10
+                        alignContent: 'center', alignItems: 'center', marginTop: 10
                     }}>
                         <View>
                             <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
@@ -214,7 +214,7 @@ export default function Chats() {
                                     backgroundColor: '#1f2c34',
                                     marginTop: 40, // Adjust position so it doesn't cover the icon
                                     borderRadius: 12,
-                                    width:200
+                                    width: 200
 
                                 }}>
 
@@ -244,7 +244,7 @@ export default function Chats() {
                                     titleStyle={styles.menuText}
                                 />
                                 <Menu.Item
-                                    onPress={() => { }}
+                                    onPress={() => navigation.navigate('Settings')}
                                     title="Settings"
                                     titleStyle={styles.menuText}
                                 />
@@ -264,7 +264,7 @@ export default function Chats() {
 
                     </View>
 
-                    <View style={{marginVertical:10}}>
+                    <View style={{ marginVertical: 10 }}>
                         <FlatList
                             data={Data}
                             renderItem={messageStatusVIew}
@@ -283,7 +283,7 @@ export default function Chats() {
                                 Archived
                             </Text>
                         </View>
-                        <View>
+                        <View style={{}}>
                             <FlatList
                                 data={MainChat}
                                 renderItem={MainChatView}
@@ -291,11 +291,12 @@ export default function Chats() {
                         </View>
                     </View>
 
-                    <TouchableOpacity onPress={()=> navigation.navigate('SelectContact')}
-                    style={{backgroundColor: '#25D366', height:55, width:55,
-                        borderWidth:1, borderRadius:10, position:'relative',
-                        top:180, left:390, alignItems:'center', justifyContent:'center'
-                    }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
+                        style={{
+                            backgroundColor: '#25D366', height: 55, width: 55,
+                            borderWidth: 1, borderRadius: 10, position: 'relative',
+                            top: 180, left: 390, alignItems: 'center', justifyContent: 'center'
+                        }}>
                         <MaterialCommunityIcons name="message-plus-outline" size={24} color="black" />
 
                     </TouchableOpacity>
