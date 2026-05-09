@@ -3,6 +3,7 @@ import { SafeAreaProvider, SafeAreaView, } from "react-native-safe-area-context"
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from "@react-navigation/native";
 
 const DATA = [
     {
@@ -77,6 +78,7 @@ const DATA = [
 
 
 export default function Updates() {
+    const navigation = useNavigation();
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
@@ -137,7 +139,8 @@ export default function Updates() {
                 <View style={{ flex: 1 }}>
                     <FlatList
                         data={DATA}
-                        renderItem={({ item }) => (<TouchableOpacity style={styles.statusContainer}>
+                        renderItem={({ item }) => (<TouchableOpacity onPress={()=> navigation.navigate ('Photos', { photo: item })}
+                         style={styles.statusContainer}>
                             <Image source={item.image}
                                 style={styles.imageStatus}
                             />

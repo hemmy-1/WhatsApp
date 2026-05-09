@@ -12,14 +12,17 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 export default function Chats() {
 
     const [visible, setVisible] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(true);
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false)
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-
+    
     const navigation = useNavigation()
+
+
 
     const Data = [
         {
@@ -190,6 +193,8 @@ export default function Chats() {
                         justifyContent: 'space-between', flexDirection: 'row',
                         alignContent: 'center', alignItems: 'center', marginTop: 10
                     }}>
+
+                        
                         <View>
                             <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
                                 WhatsApp
@@ -198,7 +203,10 @@ export default function Chats() {
 
 
                         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                            <EvilIcons name="camera" size={30} color="white" />
+                            <TouchableOpacity>
+
+                              <EvilIcons name="camera" size={24} color="white" />
+                            </TouchableOpacity>
 
 
                             <Menu
@@ -219,12 +227,12 @@ export default function Chats() {
                                 }}>
 
                                 <Menu.Item
-                                    onPress={() => { }}
+                                    onPress={() => setCount(count + 1)}
                                     title="New group"
                                     titleStyle={styles.menuText}
                                 />
                                 <Menu.Item
-                                    onPress={() => { }}
+                                    onPress={() => setCount(count - 1)}
                                     title="New broadcast"
                                     titleStyle={styles.menuText}
                                 />

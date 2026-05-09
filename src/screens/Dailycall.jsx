@@ -8,7 +8,6 @@ import { Audio } from 'expo-av';
 import { useEffect,useRef,useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-
 const Dailycall = () => {
 
   const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
@@ -43,7 +42,7 @@ const Dailycall = () => {
         require('../assets/audio/iphoneTone.mp3'), // put your mp3 in assets folder
         { 
           isLooping: true, // loop the ringing sound
-          volume: 1.0 
+          volume: 1.0, 
         }
       )
       soundRef.current = sound
