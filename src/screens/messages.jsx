@@ -11,6 +11,8 @@ import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } fr
 
 export default function Messages({ route }) {
 
+
+  const [message, setMessage] = useState('')
   const [visible, setVisible] = useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -48,11 +50,11 @@ export default function Messages({ route }) {
 
 
 
-            <TouchableOpacity onPress={()=> navigation.navigate('Profile', {MainChat})}
-            style={{
-              height: '100%', width: '50%',
-              justifyContent: 'center', backgroundColor: 'black'
-            }}>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile', { MainChat })}
+              style={{
+                height: '100%', width: '50%',
+                justifyContent: 'center', backgroundColor: 'black'
+              }}>
               <Text style={styles.userName}>{MainChat.name}</Text>
             </TouchableOpacity>
 
@@ -167,7 +169,7 @@ export default function Messages({ route }) {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={{ flex: 1 }}
             // This offset nudges the bar to sit perfectly above the keyboard
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 80}          >
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 120}          >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={{ flex: 1 }}>
 
@@ -188,10 +190,16 @@ export default function Messages({ route }) {
                       placeholderTextColor="#85959f"
                       style={styles.textInput}
                       multiline
+                      value={message}
+                      onChangeText={(text) => setMessage(text)}
                     />
 
                     <TouchableOpacity style={styles.iconButton}>
+
+
+
                       <Entypo name="attachment" size={20} color="#85959f" style={{ transform: [{ rotate: '315deg' }] }} />
+
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.iconButton}>
@@ -200,7 +208,11 @@ export default function Messages({ route }) {
                   </View>
 
                   <TouchableOpacity style={styles.micButton}>
-                    <FontAwesome5 name="microphone" size={20} color="black" />
+                    {message.length > 0 ? (
+                      <Ionicons name="send" size={20} color="black" />
+                      )
+                      : (<FontAwesome5 name="microphone" size={20} color="black" />)
+}
                   </TouchableOpacity>
                 </View>
 

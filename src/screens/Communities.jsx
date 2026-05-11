@@ -142,7 +142,7 @@ export default function Communities() {
             flex: 0.10, flexDirection: 'row', justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-            <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Communities</Text>
+            <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>Communities</Text>
             <Menu
               visible={visible}
               onDismiss={closeMenu}

@@ -367,7 +367,7 @@ export default function Chats() {
 
                     <Modal visible={showCamera} animationType="slide">
                         <View style={{ flex: 1, backgroundColor: 'black' }}>
-                            <CameraView style={{ flex: 1 }} facing="back">
+                            <CameraView style={{ flex: 1 }} facing="front">
                                 <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 50 }}>
                                     {/* Close Button */}
                                     <TouchableOpacity
