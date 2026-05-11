@@ -1,82 +1,65 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Updates from '../screens/Updates';
 import Calls from '../screens/Calls';
 import Communities from '../screens/Communities';
 import Chats from '../screens/Chats';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-// NOTE: Changed name from "App" to "TabNavigator" and removed NavigationContainer
 export default function TabNavigator() {
   return (
     <Tab.Navigator
+      animation= 'shift'
+      tabBarPosition="bottom" // Keeps it at the bottom like your screenshot
+      initialRouteName="Chats"
       screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarActiveTintColor: '#FFFFFF', // White text for active
-        tabBarInactiveTintColor: '#AAB8C2', // Grayish text for inactive
+        tabBarShowIcon: true, // Crucial for Top Tabs
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: '#AAB8C2',
         tabBarStyle: {
-          backgroundColor: '#0B141B', // Dark WhatsApp background
-          height: 70,
+          backgroundColor: '#0B141B',
+          height: 75,
           borderTopWidth: 0,
-          paddingBottom: 10,
+          elevation: 0, // Removes shadow on Android
+        },
+        tabBarIndicatorStyle: {
+          height: 0, // Hides the sliding bar so we can use your pill effect
         },
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: 11,
+          textTransform: 'none',
+          marginBottom: 10,
         },
-        // This creates the "pill" effect behind the active icon
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIconStyle: {
+          width: 'auto',
+          height: 35,
+        },
+        tabBarIcon: ({ focused }) => {
           let iconSource;
-          let showBadge = false;
-
-          if (route.name === 'Chats') {
-            iconSource = require('../assets/chat.png');
-            showBadge = true; // Example: show badge on chats
-          } else if (route.name === 'Updates') {
-            iconSource = require('../assets/updates.png');
-          } else if (route.name === 'Communities') {
-            iconSource = require('../assets/community.png');
-          } else if (route.name === 'Calls') {
-            iconSource = require('../assets/calls.png');
-          }
+          if (route.name === 'Chats') iconSource = require('../assets/chat.png');
+          else if (route.name === 'Updates') iconSource = require('../assets/updates.png');
+          else if (route.name === 'Communities') iconSource = require('../assets/community.png');
+          else if (route.name === 'Calls') iconSource = require('../assets/calls.png');
 
           return (
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View style={{
-                backgroundColor: focused ? '#0D3D28' : 'transparent', // Dark green pill
-                paddingHorizontal: 20,
-                paddingVertical: 4,
-                borderRadius: 20,
-                marginBottom: 4,
-              }}>
-                <Image 
-                  source={iconSource} 
-                  style={{ 
-                    width: 24, 
-                    height: 24, 
-                    tintColor: focused ? '#D1F4CC' : '#AAB8C2' // Light green if focused
-                  }} 
-                />
-                {/* Notification Badge Example */}
-                {showBadge && (
-                  <View style={{
-                    position: 'absolute',
-                    right: 8,
-                    top: -2,
-                    backgroundColor: '#25D366', // Bright WhatsApp green
-                    borderRadius: 10,
-                    width: 16,
-                    height: 16,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                    <Text style={{ color: '#0B141B', fontSize: 10, fontWeight: 'bold' }}>4</Text>
-                  </View>
-                )}
-              </View>
+            <View style={{
+              backgroundColor: focused ? '#0D3D28' : 'transparent',
+              paddingHorizontal: 18,
+              paddingVertical: 4,
+              borderRadius: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Image
+                source={iconSource}
+                style={{
+                  width: 22,
+                  height: 22,
+                  tintColor: focused ? '#D1F4CC' : '#AAB8C2'
+                }}
+              />
             </View>
           );
         },

@@ -85,7 +85,7 @@ export default function Updates() {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                     <View>
-                        <Text style={{ fontSize: 40, color: 'white', }}>
+                        <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
                             Updates
                         </Text>
                     </View>
@@ -96,7 +96,7 @@ export default function Updates() {
                     </View>
                 </View>
 
-                <View style={{
+                {/* <View style={{
                     width: "95%", height: 50, backgroundColor: "#0a332b",
                     borderRadius: 10, justifyContent: "center", alignItems: "center", flexDirection: "row", gap: 20,
                 }}>
@@ -116,7 +116,7 @@ export default function Updates() {
                         <Entypo name="cross" size={24} color="white"
                         />
                     </View>
-                </View>
+                </View> */}
 
                 <Text style={{ color: "white", fontSize: 18, }}>Status</Text>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -146,7 +146,7 @@ export default function Updates() {
                             />
                             <View>
                                 <Text style={styles.title}>{item.title}</Text>
-                                <Text style={styles.title}>{item.time}</Text>
+                                <Text style={styles.title2}>{item.time}</Text>
                             </View>
                         </TouchableOpacity>)}
                         keyExtractor={item => item.id}
@@ -179,12 +179,17 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'white',
-        fontSize: 10
+        fontSize: 16
+    },
+    title2: {
+        color: 'white',
+        fontSize: 14,
+        color:'#888'
     },
 
     imageStatus: {
-        width: 50,
-        height: 50,
+        width: 55,
+        height: 55,
         borderRadius: 50,
     },
 });

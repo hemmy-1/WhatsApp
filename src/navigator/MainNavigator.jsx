@@ -11,6 +11,7 @@ import Messages from '../screens/Messages';
 import Profile from '../screens/Profile';
 import Dailycall from '../screens/Dailycall';
 import SelectContact from '../screens/SelectContact';
+import Settings from '../screens/Settings';
 import SplashScreen from '../screens/SplashScreen';
 import Photos from '../screens/Photos';
 import Camera from '../screens/Camera';
@@ -30,6 +31,7 @@ const MainNavigator = () => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Dailycall" component={Dailycall} />
       <Stack.Screen name="SelectContact" component={SelectContact} />
+      <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Photos" component={Photos} />
       <Stack.Screen name="Camera" component={Camera}/>
     </Stack.Navigator>
