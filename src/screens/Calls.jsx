@@ -10,28 +10,27 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useNavigation } from "@react-navigation/native";
 import { Menu, Divider, PaperProvider } from 'react-native-paper';
 import { useState } from 'react';
-
-
-
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const Data = [
     {
         id: '1',
-        icons: 'call-outline',
+        Ionicons: 'call-outline',
         title: 'Call',
+        location: 'navigation.navigate("SelectContact")',
     },
     {
         id: '2',
-        icons: 'schedule',
+        MaterialCommunityIcons: 'calendar-month',
         title: 'Schedule',
     },
     {
         id: '3',
-        icons: '',
+        MaterialCommunityIcons: 'apps',
         title: 'Keypad',
     },
     {
         id: '4',
-        icons: '',
+        MaterialIcons: 'favorite-border',
         title: 'Favorites',
     },
 ]
@@ -125,55 +124,72 @@ const Calls = () => {
             <SafeAreaProvider>
                 <SafeAreaView style={styles.container}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", }}>
-                        <Menu 
-                        visible={visible}
+                        <Menu
+                            visible={visible}
                             onDismiss={closeMenu}
                             anchor={
-                                <TouchableOpacity  onPress={(openMenu) }>
+                                <TouchableOpacity onPress={(openMenu)}>
                                     <Entypo name="dots-three-horizontal" size={24} color="white" />
-                                    </TouchableOpacity>
-                                }
-                                contentStyle={{backgroundColor:"white",width:"170%",height:80,borderRadius:15,marginTop:30,}}
-                                >
-                                    <Menu.Item 
-                                    title="Edit"
-                                    onPress={() => {}}  
-                                    leadingIcon="pencil"
-                                    style={{ height:30, }}
-                                     />
+                                </TouchableOpacity>
+                            }
+                            contentStyle={{ backgroundColor: "white", width: "170%", height: 80, borderRadius: 15, marginTop: 30, }}
+                        >
 
-                                    <Divider />
+                            <Menu.Item
+                                title="Edit"
+                                onPress={() => { }}
+                                trailingIcon="pencil"
+                                style={{ height: 30, justifyContent: "center", }}
+                            />
 
-                                    <Menu.Item leadingIcon="calendar"
-                                     onPress={() => { }} 
-                                     title="Schedule"
-                                        style={{ }} 
-                                        />
+                            <Divider />
+
+                            <Menu.Item trailingIcon="calendar"
+                                onPress={() => { }}
+                                title="Schedule"
+                                style={{}}
+                            />
+
                         </Menu>
-                        <TouchableOpacity onPress={()=> navigation.navigate ('SelectContact')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}>
                             <Entypo name="circle-with-plus" size={24} color="green" />
                         </TouchableOpacity>
                     </View>
                     <Text style={{ color: "white", fontSize: 32, fontWeight: "bold", }}>Calls</Text>
 
                     <View style={{
-                        width: "95%", height: 32, backgroundColor: "'rgba(255, 255, 255, 0.5)'", alignItems: "center", borderRadius: 10, flexDirection: "row",
-                        paddingHorizontal: 10, gap: 5
+                        width: "95%", height: 42, backgroundColor: "'rgba(255, 255, 255, 0.5)'", alignItems: "center", borderRadius: 10, flexDirection: "row",
+                        marginHorizontal: 10, gap: 5
                     }}>
                         <EvilIcons name="search" size={24} color="white" />
                         <TextInput
                             placeholder='Search'
                             placeholderTextColor={"black"}
-                            style={{ fontSize: 18, flex: 1, }}
+                            style={{ fontSize: 20, flex: 1, }}
                             returnKeyType='search'
                         />
                     </View>
                     <View>
                         <FlatList
                             data={Data}
-                            renderItem={({ item }) => (<TouchableOpacity onPress={() => navigation.navigate('Dailycall')} style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
+                            renderItem={({ item }) => (<TouchableOpacity style={{ gap: 8, margin: 10, paddingHorizontal: 8, }}>
                                 <View style={styles.callicons}>
-                                    <Ionicons name={item.icons} size={24} color="white" />
+
+                                    {/* Call Icon */}
+                                    <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
+                                        style={{ position: 'absolute', bottom: 0, top: 0, right: 0, left: 0, justifyContent: "center", alignItems: "center" }}>
+                                      
+                                      { item.Ionicons ? 
+                                      (<Ionicons name={item.Ionicons} size={24} color="white" />) :
+                                      item.MaterialIcons ?
+                                          (<MaterialIcons name={item.MaterialIcons} size={24} color="black" />): 
+                                          (<MaterialCommunityIcons name={item.MaterialCommunityIcons} size={24} color="black" /> ) 
+                                      } 
+                                    </TouchableOpacity>
+
+                                    
+
+                                 
                                 </View>
                                 < View style={styles.calltitle}>
                                     <Text style={styles.callBartext}>{item.title}</Text>
@@ -242,8 +258,8 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 50,
         backgroundColor: "gray",
-        justifyContent: "center",
-        alignItems: "center",
+        // justifyContent: "center",
+        // alignItems: "center",
     },
     callBartext: {
         color: "white",

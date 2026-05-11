@@ -103,9 +103,9 @@ const Dailycall = () => {
             <Entypo name="dots-three-horizontal" size={24} color="white" />
           </View>
 
-          <View style={styles.boxcontainer}>
-            <Ionicons name="videocam" size={24} color="black" />
-          </View>
+          <TouchableOpacity onPress ={() => navigation.navigate('Camera')} style={styles.boxcontainer}>
+            <Ionicons name="videocam" size={24} color="white" />
+          </TouchableOpacity>
 
           <View style={{
             height: 60, width: 60, borderRadius: 60, backgroundColor: "white", justifyContent: "center", alignItems: "center"
