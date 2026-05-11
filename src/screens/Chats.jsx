@@ -7,9 +7,23 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Menu, PaperProvider, Divider } from 'react-native-paper';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 
 export default function Chats() {
+
+    const [permission, requestPermission] = useCameraPermissions();
+    const [showCamera, setShowCamera] = useState(false);
+
+    const handleCameraPress = async () => {
+        if (!permission?.granted) {
+            const { granted } = await requestPermission();
+            if (!granted) return; 
+        }
+        setShowCamera(true);
+    };
 
     const [visible, setVisible] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(true);
@@ -202,9 +216,10 @@ export default function Chats() {
                         </View>
 
 
-                        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                            <TouchableOpacity>
+                        <View 
+                        style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
 
+                            <TouchableOpacity onPress={handleCameraPress} >
                               <EvilIcons name="camera" size={24} color="white" />
                             </TouchableOpacity>
 
@@ -348,6 +363,28 @@ export default function Chats() {
                                 </View>
                             </TouchableWithoutFeedback>
                         </TouchableOpacity>
+                    </Modal>
+
+                    <Modal visible={showCamera} animationType="slide">
+                        <View style={{ flex: 1, backgroundColor: 'black' }}>
+                            <CameraView style={{ flex: 1 }} facing="back">
+                                <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 50 }}>
+                                    {/* Close Button */}
+                                    <TouchableOpacity
+                                        onPress={() => setShowCamera(false)}
+                                        style={{ position: 'absolute', top: 50, left: 20 }}
+                                    >
+                                        <Ionicons name="close" size={30} color="white" />
+                                    </TouchableOpacity>
+
+                                    {/* Capture Button */}
+                                    <TouchableOpacity
+                                        style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 5, borderColor: 'white' }}
+                                        onPress={() => console.log('Snap!')}
+                                    />
+                                </View>
+                            </CameraView>
+                        </View>
                     </Modal>
 
 
