@@ -21,6 +21,10 @@ export default function Messages({ route }) {
   const openMoreMenu = () => setMoreVisible(true);
   const closeMoreMenu = () => setMoreVisible(false);
 
+  const [attachment, setAttachment] = useState(false)
+
+  const [camera, setCamera] = useState(false)
+
 
 
   const navigation = useNavigation()
@@ -236,7 +240,39 @@ const sendMessage = async (text) => {
                   />
                 </View>
 
-                {/* INPUT AREA: Now part of the normal flow */}
+
+                {attachment && (
+                  <View style={styles.attachmentMenu}>
+                    <View style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      marginBottom: 20,
+                    }}>
+                      <ActionIcon iconLib={Ionicons} name="images" color="#54a7ff" label="Gallery"
+                        onPress={() => isNavigation('Photos')} />
+                      <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" />
+                      <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location" />
+                      <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact" />
+                    </View>
+                    <View style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      marginBottom: 20,
+                    }}>
+                      <ActionIcon iconLib={Ionicons} name="document" color="#7f66ff" label="Document" />
+                      <ActionIcon iconLib={Ionicons} name="headset" color="#ff8e35" label="Audio" />
+                      <ActionIcon iconLib={MaterialIcons} name="poll" color="#ffc331" label="Poll" />
+                      <ActionIcon iconLib={MaterialIcons} name="event" color="#ff4571" label="Event" />
+                    </View>
+                  </View>
+                )}
+
+               
+
+
+
+
+
                 <View style={styles.bottomInputRow}>
                   <View style={styles.inputContainer}>
                     <TouchableOpacity  style={styles.iconButton}>
@@ -252,10 +288,8 @@ const sendMessage = async (text) => {
                       onChangeText={(text) => setMessage(text)}
                     />
 
-                    <TouchableOpacity style={styles.iconButton}>
-
-
-
+                    <TouchableOpacity onPress={() => setAttachment(!attachment)}
+                      style={styles.iconButton}>
                       <Entypo name="attachment" size={20} color="#85959f" style={{ transform: [{ rotate: '315deg' }] }} />
 
                     </TouchableOpacity>
@@ -268,22 +302,16 @@ const sendMessage = async (text) => {
                   <TouchableOpacity onPress={() => sendMessage(message)} style={styles.micButton}>
                     {message.length > 0 ? (
                       <Ionicons name="send" size={20} color="black" />
-                      )
+                    )
                       : (<FontAwesome5 name="microphone" size={20} color="black" />)
-}
+                    }
                   </TouchableOpacity>
                 </View>
 
               </View>
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
-
-
-
-
         </ImageBackground>
-
-
       </SafeAreaProvider>
     </PaperProvider>
 
@@ -403,6 +431,19 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: Platform.OS === 'ios' ? 20 : 5,
 
+  },
+  attachmentMenu: {
+    backgroundColor: '#101d25',
+    borderRadius: 20,
+    padding: 20,
+    width: '95%',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 80,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.3,
   },
 
 });
