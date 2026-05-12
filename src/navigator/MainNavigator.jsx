@@ -15,6 +15,7 @@ import Settings from '../screens/Settings';
 import SplashScreen from '../screens/SplashScreen';
 import Photos from '../screens/Photos';
 import Camera from '../screens/Camera';
+import LocationP from '../screens/LocationP';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ const MainNavigator = () => {
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Photos" component={Photos} />
       <Stack.Screen name="Camera" component={Camera}/>
+      <Stack.Screen name="LocationP" component={LocationP}/>
     </Stack.Navigator>
   );
 };

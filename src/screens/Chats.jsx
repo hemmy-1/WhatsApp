@@ -135,6 +135,62 @@ export default function Chats() {
             time: '10:10',
             img: require('../assets/meme.png')
         },
+        {
+            id: '7',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '8',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '9',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '10',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '11',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '12',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '13',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
+        {
+            id: '14',
+            name: 'Daniel',
+            message: 'welcome to this chat',
+            time: '10:10',
+            img: require('../assets/meme.png')
+        },
     ]
     const MainChatView = ({ item }) => {
         return (

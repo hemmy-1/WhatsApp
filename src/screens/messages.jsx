@@ -290,8 +290,10 @@ const sendMessage = async (text) => {
                       <ActionIcon iconLib={Ionicons} name="images" color="#54a7ff" label="Gallery"
                         onPress={() => isNavigation('Photos')} />
                       <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" onPress={isCamera} />
-                      <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location" />
-                      <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact" />
+                      <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location" 
+                      onPress={()=> isNavigation('LocationP')}/>
+                      <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact" 
+                      onPress={()=> isNavigation('SelectContact')}/>
                     </View>
                     <View style={{
                       flexDirection: 'row',

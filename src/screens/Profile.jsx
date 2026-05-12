@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, ScrollView, Switch } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -18,8 +18,12 @@ export default function Profile({ route }) {
     const [moreVisible, setMoreVisible] = useState(false);
     const openMoreMenu = () => setMoreVisible(true);
     const closeMoreMenu = () => setMoreVisible(false);
+    const [endable, isEnabled] = useState('')
 
-
+    const toggleSwitch = () => {
+        setType(current => (current === 'front' ? 'back' : 'front'));
+    };
+    const [type, setType] = useState('front');
 
     const navigation = useNavigation()
     const { MainChat } = route.params
@@ -45,6 +49,7 @@ export default function Profile({ route }) {
         {
             id: '5',
             img: require('../assets/ars.png')
+
         },
         {
             id: '6',
@@ -353,7 +358,12 @@ export default function Profile({ route }) {
                                 scrollEnabled={false}
                             />
                         </View>
-
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#81b0ff" }}
+                            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                        />
 
 
 
