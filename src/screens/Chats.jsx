@@ -9,6 +9,7 @@ import { Menu, PaperProvider, Divider } from 'react-native-paper';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CameraModal from "../components/CameraModal";
 
 
 
@@ -20,7 +21,7 @@ export default function Chats() {
     const handleCameraPress = async () => {
         if (!permission?.granted) {
             const { granted } = await requestPermission();
-            if (!granted) return; 
+            if (!granted) return;
         }
         setShowCamera(true);
     };
@@ -33,7 +34,7 @@ export default function Chats() {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    
+
     const navigation = useNavigation()
 
 
@@ -208,7 +209,7 @@ export default function Chats() {
                         alignContent: 'center', alignItems: 'center', marginTop: 10
                     }}>
 
-                        
+
                         <View>
                             <Text style={{ fontSize: 25, color: 'white', fontWeight: 800 }}>
                                 WhatsApp
@@ -216,11 +217,11 @@ export default function Chats() {
                         </View>
 
 
-                        <View 
-                        style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+                        <View
+                            style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
 
                             <TouchableOpacity onPress={handleCameraPress} >
-                              <EvilIcons name="camera" size={24} color="white" />
+                                <EvilIcons name="camera" size={24} color="white" />
                             </TouchableOpacity>
 
 
@@ -365,27 +366,11 @@ export default function Chats() {
                         </TouchableOpacity>
                     </Modal>
 
-                    <Modal visible={showCamera} animationType="fade">
-                        <View style={{ flex: 1, backgroundColor: 'black' }}>
-                            <CameraView style={{ flex: 1 }} facing="front">
-                                <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 50 }}>
-                                    {/* Close Button */}
-                                    <TouchableOpacity
-                                        onPress={() => setShowCamera(false)}
-                                        style={{ position: 'absolute', top: 50, left: 20 }}
-                                    >
-                                        <Ionicons name="close" size={30} color="white" />
-                                    </TouchableOpacity>
+                    <CameraModal facing={'front'}
+                        onClose={() => setShowCamera(false)}
+                        visible={showCamera}
+                    />
 
-                                    {/* Capture Button */}
-                                    <TouchableOpacity
-                                        style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 5, borderColor: 'white' }}
-                                        onPress={() => console.log('Snap!')}
-                                    />
-                                </View>
-                            </CameraView>
-                        </View>
-                    </Modal>
 
 
                 </SafeAreaView>

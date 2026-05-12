@@ -11,6 +11,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CameraModal from '../components/CameraModal';
 
 export default function Messages({ route }) {
 
@@ -26,7 +27,7 @@ export default function Messages({ route }) {
 
   const [attachment, setAttachment] = useState(false)
 
-  const [camera, setCamera] = useState(false)
+  const [showCamera, setShowCamera] = useState(false)
 
 
 
@@ -60,6 +61,11 @@ export default function Messages({ route }) {
   const isNavigation = (onPress) => {
     setAttachment(false); 
     navigation.navigate(onPress); 
+  };
+
+  const isCamera = (onPress) => {
+    setShowCamera(true); 
+    setAttachment(false); 
   };
   
 
@@ -283,7 +289,7 @@ const sendMessage = async (text) => {
                     }}>
                       <ActionIcon iconLib={Ionicons} name="images" color="#54a7ff" label="Gallery"
                         onPress={() => isNavigation('Photos')} />
-                      <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" />
+                      <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" onPress={isCamera} />
                       <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location" />
                       <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact" />
                     </View>
@@ -343,8 +349,16 @@ const sendMessage = async (text) => {
                 </View>
 
               </View>
+
+
+
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
+
+          <CameraModal facing={'front'}
+            onClose={() => setShowCamera(false)}
+            visible={showCamera}
+          />
         </ImageBackground>
       </SafeAreaProvider>
     </PaperProvider>
@@ -462,7 +476,7 @@ const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     position: 'absolute',
-    bottom: 80,
+    bottom: 65,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
