@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, Modal } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Menu, PaperProvider, Divider } from 'react-native-paper';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Messages({ route }) {
 
@@ -62,6 +63,38 @@ export default function Messages({ route }) {
   };
   
 
+  {/*Save Messages*/}
+const saveMessages = async (chatId, messages) => {
+  try {
+    await AsyncStorage.setItem(`chat_${chatId}`,JSON.stringify(messages))
+  } catch (error) {
+    console.error('Error saving messages:', error)
+  }
+}
+
+{/*Load Messages*/}
+const loadMessages = async (chatId) => {
+  try {
+    const messages = await AsyncStorage.getItem(`chat_${chatId}`)
+    return messages? JSON.parse(messages) : []
+  } catch (error) {
+    console.error('Error loading messages:', error)
+    return []
+  }
+}
+
+const [messages, setMessages] = useState([])
+useEffect (() =>{
+  loadMessages(MainChat.id).then(loadedMessages => setMessages(loadedMessages))
+}, [MainChat.id])
+const sendMessage = async (text) => {
+  if (text.trim() === '') return
+  const newMessage = {id: Date.now(), text, time: new Date().toISOString(), sender: 'me'}
+  const updatedMessages = [...messages, newMessage]
+  setMessages(updatedMessages)
+  await saveMessages(MainChat.id, updatedMessages)
+  setMessage('')
+}
 
   return (
     <PaperProvider>
@@ -211,7 +244,33 @@ export default function Messages({ route }) {
 
                 {/* MESSAGE AREA: This flex:1 View pushes the input down */}
                 <View style={{ flex: 1 }}>
-                  {/* Your FlatList of messages will go here */}
+                  <FlatList
+                    data={messages}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <View style={{
+                        flexDirection: 'row',
+                        justifyContent: item.sender === 'me' ? 'flex-end' : 'flex-start',
+                        marginVertical: 5,
+                        paddingHorizontal: 10
+                      }}>
+                        <View style={{
+                          maxWidth: '75%',
+                          backgroundColor: item.sender === 'me' ? '#005C4B' : '#1f2c33',
+                          borderRadius: 10,
+                          paddingHorizontal: 12,
+                          paddingVertical: 8
+                        }}>
+                          <Text style={{ color: 'white', fontSize: 15 }}>{item.text}</Text>
+                          <Text style={{ color: '#aaa', fontSize: 11, marginTop: 4, textAlign: 'right' }}>
+                            {new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                    inverted
+                    scrollEnabled
+                  />
                 </View>
 
 
@@ -249,8 +308,8 @@ export default function Messages({ route }) {
 
                 <View style={styles.bottomInputRow}>
                   <View style={styles.inputContainer}>
-                    <TouchableOpacity onPress={() => setCamera(!camera)}
-                      style={styles.iconButton}>
+                    
+                    <TouchableOpacity  style={styles.iconButton}>
                       <MaterialCommunityIcons name="emoticon-happy-outline" size={24} color="#85959f" />
                     </TouchableOpacity>
 
@@ -274,7 +333,7 @@ export default function Messages({ route }) {
                     </TouchableOpacity>
                   </View>
 
-                  <TouchableOpacity style={styles.micButton}>
+                  <TouchableOpacity onPress={() => sendMessage(message)} style={styles.micButton}>
                     {message.length > 0 ? (
                       <Ionicons name="send" size={20} color="black" />
                     )
@@ -289,17 +348,6 @@ export default function Messages({ route }) {
         </ImageBackground>
       </SafeAreaProvider>
     </PaperProvider>
-
-
-
-
-
-
-
-
-
-
-
   )
 };
 
