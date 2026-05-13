@@ -484,7 +484,6 @@ const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
         alignItems: 'center',
-        //backgroundColor: 'rgba(0,0,0,0.7)', // Darker background like WhatsApp
         position: 'relative',
         top: 200
     },
