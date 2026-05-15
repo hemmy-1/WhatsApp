@@ -121,15 +121,17 @@ const Calls = () => {
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [scheduleModalVisible, setScheduleModalVisible] = useState(false);
+    const [keypadModalVisible, setKeypadModalVisible] = useState(false);
+    
     const handlePress = (id, screen) => {
         console.log('Pressed item with id:', id);
         if (id === '1') {
             navigation.navigate('SelectContact');
         } else if (id === '2') {
-            setModalVisible(true);
-        } else {
-            // Handle other cases if needed
+            setScheduleModalVisible(true);
+        } else if (id === '3') {
+            setKeypadModalVisible(true);
         }
     };
 
@@ -250,14 +252,14 @@ const Calls = () => {
 
                     </View>
 
-                    <Modal visible={modalVisible}
-                        onRequestClose={() => setModalVisible(false)}
+                    <Modal visible={scheduleModalVisible}
+                        onRequestClose={() => setScheduleModalVisible(false)}
                         animationType="slide"
-                        presentationStyle="pageSheet"
-                        transparent={true}>
+                        presentationStyle="pageSheet"                       
+                        transparent={false}>
                             <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 22, borderTopRightRadius: 22, }}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
-                                    <TouchableOpacity   onPress={() => setModalVisible(false)}>
+                                    <TouchableOpacity onPress={() => setScheduleModalVisible(false)}>
                                         <Text style={{ fontSize: 21, color: "white" }}>
                                             Cancel
                                         </Text>
@@ -311,7 +313,7 @@ const Calls = () => {
                                         Event with cal links can't be more than one year in {"\n"}the future.
                                     </Text>
                                 </View>
-                                <TouchableOpacity style={{  width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "center", borderRadius: 10, padding: 10 }}>
+                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "center", borderRadius: 10, padding: 10 }}>
                                     <Text style={{ fontSize: 17, color: "white" }}>
                                         Call type
                                     </Text>
@@ -328,6 +330,137 @@ const Calls = () => {
                                     </Text>
                                 </View>
                             </View>
+                    </Modal>
+
+
+                    <Modal  visible={keypadModalVisible}
+                        onRequestClose={() => setKeypadModalVisible(false)}
+                        animationType="slide"
+                        presentationStyle="pageSheet"
+                        transparent={false}>
+                        <View style={{flex:1,backgroundColor: "rgba(0,0,0,0.5)",padding:15,}} >
+
+                            <TouchableOpacity onPress={()=> setKeypadModalVisible(false)} style={{marginTop:15}}>
+                                <Text style={{fontSize:25}}>Cancel</Text>
+                            </TouchableOpacity>
+                        <View style={styles.KeypadContainer}>
+
+                            <View style={{ flexDirection: "row", gap: 30 }}>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        1
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        2
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        A B C
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        3
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        D E F
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        4
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        G H I
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        5
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        J K L
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        6
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        M N O
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        7
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        P Q R S
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        8
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        T U V
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        9
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        W X Y Z
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        *
+                                    </Text>
+
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        0
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        +
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        #
+                                    </Text>
+
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity style={{ backgroundColor: "lightgreen", height: 75, width: 75, borderRadius: 75, }}>
+
+                            </TouchableOpacity>
+                        </View>
+                        </View>
                     </Modal>
 
                 </SafeAreaView >
@@ -351,8 +484,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 50,
         backgroundColor: "gray",
-        // justifyContent: "center",
-        // alignItems: "center",
+
     },
     callBartext: {
         color: "white",
@@ -392,6 +524,29 @@ const styles = StyleSheet.create({
         height: 53,
         borderBottomWidth: 0.5,
         borderBottomColor: "gray"
+    },
+    KeypadContainer: {
+       flex:1,
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20,
+        marginTop:60,
+    },
+
+    Keypad: {
+        width: 75,
+        height: 75,
+        borderRadius: 75,
+        backgroundColor: "gray",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white"
+    },
+    boxKeypad: {
+        fontSize: 40,
+    },
+    smalltext: {
+        fontSize: 12,
     },
 })
 
