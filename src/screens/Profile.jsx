@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, ScrollView, Switch, Modal } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -14,12 +14,18 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Profile({ route }) {
 
+    const [viewImage, setViewImage] = useState(false);
+
 
     const [moreVisible, setMoreVisible] = useState(false);
     const openMoreMenu = () => setMoreVisible(true);
     const closeMoreMenu = () => setMoreVisible(false);
+    const [endable, isEnabled] = useState('')
 
-
+    const toggleSwitch = () => {
+        setType(current => (current === 'front' ? 'back' : 'front'));
+    };
+    const [type, setType] = useState('front');
 
     const navigation = useNavigation()
     const { MainChat } = route.params
@@ -45,6 +51,7 @@ export default function Profile({ route }) {
         {
             id: '5',
             img: require('../assets/ars.png')
+
         },
         {
             id: '6',
@@ -153,7 +160,7 @@ export default function Profile({ route }) {
             id: '2',
             name: 'Add to groups',
             note: 'Add this contacts to groups you are in.',
-            MaterialCommunityIcons: "account-multiple-plus" 
+            MaterialCommunityIcons: "account-multiple-plus"
         },
         {
             id: '3',
@@ -188,16 +195,17 @@ export default function Profile({ route }) {
         return (
             <TouchableOpacity style={{
                 flexDirection: 'row', marginTop: 25, gap: 40, marginStart: 10,
-                alignItems: 'center' }}>
+                alignItems: 'center'
+            }}>
 
-                    {item.Ionicons ?
-                        (<Ionicons name={item.Ionicons} size={22} color="#fff" />) 
-                        : item.MaterialCommunityIcons ? 
-                        ( <MaterialCommunityIcons name={item.MaterialCommunityIcons} size={22} style={{color: item.color || "#ffffff"}} />) 
-                        : (<MaterialIcons name={item.MaterialIcons} size={24} style={{color: item.color || "#ffffff"}} />)}
-                    <Text style={{ color: item.color || 'white', fontSize: 16 }}>
-                        {item.name}
-                    </Text>
+                {item.Ionicons ?
+                    (<Ionicons name={item.Ionicons} size={22} color="#fff" />)
+                    : item.MaterialCommunityIcons ?
+                        (<MaterialCommunityIcons name={item.MaterialCommunityIcons} size={22} style={{ color: item.color || "#ffffff" }} />)
+                        : (<MaterialIcons name={item.MaterialIcons} size={24} style={{ color: item.color || "#ffffff" }} />)}
+                <Text style={{ color: item.color || 'white', fontSize: 16 }}>
+                    {item.name}
+                </Text>
             </TouchableOpacity>
 
 
@@ -220,8 +228,11 @@ export default function Profile({ route }) {
 
                             <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 10, gap: 5 }}>
 
-                                <Image source={MainChat.img}
-                                    style={{ height: 120, width: 120, borderRadius: 100 }} />
+                                <TouchableOpacity onPress={() => setViewImage(true)}>
+                                    <Image source={MainChat.img}
+                                        style={{ height: 120, width: 120, borderRadius: 100 }} />
+                                </TouchableOpacity>
+
                                 <Text style={styles.userName}>{MainChat.name}</Text>
                                 <Text style={{
                                     color: 'white', fontSize: 18,
@@ -262,12 +273,12 @@ export default function Profile({ route }) {
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 15, }}>
-                            <TouchableOpacity onPress={()=> navigation.navigate('Dailycall')}
-                            style={{
-                                height: 65, width: 140,
-                                borderWidth: 1, borderColor: '#ffffff46',
-                                borderRadius: 10, justifyContent: 'center', alignItems: 'center'
-                            }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Dailycall')}
+                                style={{
+                                    height: 65, width: 140,
+                                    borderWidth: 1, borderColor: '#ffffff46',
+                                    borderRadius: 10, justifyContent: 'center', alignItems: 'center'
+                                }}>
                                 <Ionicons name="call-outline" size={24} color="#25D366" />
                                 <Text style={{ color: 'white' }}>
                                     Audio
@@ -344,7 +355,7 @@ export default function Profile({ route }) {
                                 scrollEnabled={false}
                             />
                         </View>
-                        <View style={{marginTop:20}}>
+                        <View style={{ marginTop: 20 }}>
                             <Text style={{ color: '#888', fontSize: 14 }}> No groups in common</Text>
                             <FlatList
                                 data={Groups}
@@ -353,7 +364,45 @@ export default function Profile({ route }) {
                                 scrollEnabled={false}
                             />
                         </View>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#81b0ff" }}
+                            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                        />
 
+                        <Modal
+                            visible={viewImage}
+                            onRequestClose={() => setViewImage(false)}
+                            animationType='slide'
+                            transparent={true}
+                        >
+                            <View
+                                onPressOut={() => setViewImage(false)}
+                                style={{
+                                    backgroundColor: '#000000dc',
+                                    flex: 1, paddingHorizontal:10
+                                }}
+                            >
+                                <View style={{
+                                    height: 60, width: '100%', borderWidth: 0.4,
+                                    borderBottomColor: '#888',
+                                    justifyContent: 'center', paddingHorizontal: 10,
+                                    backgroundColor:'black'
+                                }}>
+
+                                    <TouchableOpacity onPress={() => setViewImage(false)}>
+                                        <Ionicons name="arrow-back" size={30} color="white" />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ marginTop:200 }}>
+                                    <Image resizeMode='stretch' source={MainChat.img} style={{
+                                        minHeight: 200, width: '100%', maxHeight:500
+                                    }} />
+                                </View>
+                            </View>
+
+                        </Modal>
 
 
 

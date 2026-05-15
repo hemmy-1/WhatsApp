@@ -3,11 +3,15 @@ import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Menu, PaperProvider, Divider } from 'react-native-paper';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CameraModal from '../components/CameraModal';
 
 export default function Messages({ route }) {
 
@@ -23,45 +27,88 @@ export default function Messages({ route }) {
 
   const [attachment, setAttachment] = useState(false)
 
-  const [camera, setCamera] = useState(false)
+  const [showCamera, setShowCamera] = useState(false)
 
 
 
   const navigation = useNavigation()
   const { MainChat } = route.params
 
-  {/*Save Messages*/}
-const saveMessages = async (chatId, messages) => {
-  try {
-    await AsyncStorage.setItem(`chat_${chatId}`,JSON.stringify(messages))
-  } catch (error) {
-    console.error('Error saving messages:', error)
-  }
-}
+  const ActionIcon = ({ name, label, color, iconLib: Icon, onPress }) => (
+    <TouchableOpacity onPress={onPress}
+      style={{
+        alignItems: 'center',
+        width: '22%',
+      }}>
+      <View style={{
+        width: 55,
+        height: 55,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 8,
+        backgroundColor: '#1f2c34'
+      }}>
+        <Icon name={name} size={30} color={color} />
+      </View>
+      <Text style={{
+        color: '#8696a0',
+        fontSize: 12,
+      }}>{label}</Text>
+    </TouchableOpacity >
+  );
 
-{/*Load Messages*/}
-const loadMessages = async (chatId) => {
-  try {
-    const messages = await AsyncStorage.getItem(`chat_${chatId}`)
-    return messages? JSON.parse(messages) : []
-  } catch (error) {
-    console.error('Error loading messages:', error)
-    return []
-  }
-}
+  const isNavigation = (onPress) => {
+    setAttachment(false);
+    navigation.navigate(onPress);
+  };
 
-const [messages, setMessages] = useState([])
-useEffect (() =>{
-  loadMessages(MainChat.id).then(loadedMessages => setMessages(loadedMessages))
-}, [MainChat.id])
-const sendMessage = async (text) => {
-  if (text.trim() === '') return
-  const newMessage = {id: Date.now(), text, time: new Date().toISOString(), sender: 'me'}
-  const updatedMessages = [...messages, newMessage]
-  setMessages(updatedMessages)
-  await saveMessages(MainChat.id, updatedMessages)
-  setMessage('')
-}
+  const isCamera = (onPress) => {
+    setShowCamera(true);
+    setAttachment(false);
+  };
+
+
+  {/*Save Messages*/ }
+  const saveMessages = async (chatId, messages) => {
+    try {
+      await AsyncStorage.setItem(`chat_${chatId}`, JSON.stringify(messages))
+    } catch (error) {
+      console.error('Error saving messages:', error)
+    }
+  }
+
+  {/*Load Messages*/ }
+  const loadMessages = async (chatId) => {
+    try {
+      const messages = await AsyncStorage.getItem(`chat_${chatId}`)
+      return messages ? JSON.parse(messages) : []
+    } catch (error) {
+      console.error('Error loading messages:', error)
+      return []
+    }
+  }
+
+  const [messages, setMessages] = useState([])
+  useEffect(() => {
+    loadMessages(MainChat.id).then(loadedMessages => setMessages(loadedMessages))
+  }, [MainChat.id])
+  const sendMessage = async (content, type = 'text') => {
+    if (type === 'text' && content.trim() === '') return;
+
+    const newMessage = {
+      id: Date.now(),
+      text: content, // This will be the URI if type is 'image'
+      type: type,    // 'text' or 'image'
+      time: new Date().toISOString(),
+      sender: 'me'
+    };
+
+    const updatedMessages = [newMessage, ...messages]; // Note: inverted list uses [new, ...old]
+    setMessages(updatedMessages);
+    await saveMessages(MainChat.id, updatedMessages);
+    setMessage('');
+  };
 
   return (
     <PaperProvider>
@@ -225,11 +272,28 @@ const sendMessage = async (text) => {
                           maxWidth: '75%',
                           backgroundColor: item.sender === 'me' ? '#005C4B' : '#1f2c33',
                           borderRadius: 10,
-                          paddingHorizontal: 12,
-                          paddingVertical: 8
+                          padding: item.type === 'image' ? 4 : 8, // Less padding for images
                         }}>
-                          <Text style={{ color: 'white', fontSize: 15 }}>{item.text}</Text>
-                          <Text style={{ color: '#aaa', fontSize: 11, marginTop: 4, textAlign: 'right' }}>
+
+                          {/* Logic to switch between Text and Image */}
+                          {item.type === 'image' ? (
+                            <Image
+                              source={{ uri: item.text }}
+                              style={{ width: 250, height: 250, borderRadius: 8 }}
+                              resizeMode="cover"
+                            />
+                          ) : (
+                            <Text style={{ color: 'white', fontSize: 15 }}>{item.text}</Text>
+                          )}
+
+                          <Text style={{
+                            color: '#aaa',
+                            fontSize: 11,
+                            marginTop: 4,
+                            textAlign: 'right',
+                            marginRight: 5,
+                            marginBottom: 2
+                          }}>
                             {new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </Text>
                         </View>
@@ -250,9 +314,11 @@ const sendMessage = async (text) => {
                     }}>
                       <ActionIcon iconLib={Ionicons} name="images" color="#54a7ff" label="Gallery"
                         onPress={() => isNavigation('Photos')} />
-                      <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" />
-                      <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location" />
-                      <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact" />
+                      <ActionIcon iconLib={Ionicons} name="camera" color="#ff4571" label="Camera" onPress={isCamera} />
+                      <ActionIcon iconLib={Ionicons} name="location" color="#00d18d" label="Location"
+                        onPress={() => isNavigation('LocationP')} />
+                      <ActionIcon iconLib={Ionicons} name="person" color="#00a5f4" label="Contact"
+                        onPress={() => isNavigation('SelectContact')} />
                     </View>
                     <View style={{
                       flexDirection: 'row',
@@ -267,7 +333,7 @@ const sendMessage = async (text) => {
                   </View>
                 )}
 
-               
+
 
 
 
@@ -275,7 +341,8 @@ const sendMessage = async (text) => {
 
                 <View style={styles.bottomInputRow}>
                   <View style={styles.inputContainer}>
-                    <TouchableOpacity  style={styles.iconButton}>
+
+                    <TouchableOpacity style={styles.iconButton}>
                       <MaterialCommunityIcons name="emoticon-happy-outline" size={24} color="#85959f" />
                     </TouchableOpacity>
 
@@ -294,7 +361,7 @@ const sendMessage = async (text) => {
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconButton}>
+                    <TouchableOpacity style={styles.iconButton} onPress={isCamera} >
                       <Ionicons name="camera-outline" size={24} color="#85959f" />
                     </TouchableOpacity>
                   </View>
@@ -309,22 +376,23 @@ const sendMessage = async (text) => {
                 </View>
 
               </View>
+
+
+
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
+
+          <CameraModal facing={'front'}
+            onClose={() => setShowCamera(false)}
+            visible={showCamera}
+            onPhotoCaptured={(uri) => {
+              sendMessage(uri, 'image'); // Does this match your sendMessage(content, type) signature?
+              setShowCamera(false);
+            }}
+          />
         </ImageBackground>
       </SafeAreaProvider>
     </PaperProvider>
-
-
-
-
-
-
-
-
-
-
-
   )
 };
 
@@ -439,7 +507,7 @@ const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     position: 'absolute',
-    bottom: 80,
+    bottom: 65,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
