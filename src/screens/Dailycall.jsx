@@ -5,8 +5,9 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Audio } from 'expo-av';
-import { useEffect,useRef,useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Dailycall = () => {
 
@@ -40,9 +41,9 @@ const Dailycall = () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require('../assets/audio/iphoneTone.mp3'), // put your mp3 in assets folder
-        { 
+        {
           isLooping: true, // loop the ringing sound
-          volume: 1.0, 
+          volume: 1.0,
         }
       )
       soundRef.current = sound
@@ -103,25 +104,25 @@ const Dailycall = () => {
             <Entypo name="dots-three-horizontal" size={24} color="white" />
           </View>
 
-          <TouchableOpacity onPress ={() => navigation.navigate('Camera')} style={styles.boxcontainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('Camera')} style={styles.boxcontainer}>
             <Ionicons name="videocam" size={24} color="white" />
           </TouchableOpacity>
 
           <View style={{
             height: 60, width: 60, borderRadius: 60, backgroundColor: "white", justifyContent: "center", alignItems: "center"
           }}>
-
+            <Ionicons name="volume-medium" size={30} color="black" />
           </View>
 
           <View style={styles.boxcontainer}>
             <Ionicons name="mic-off-sharp" size={24} color="white" />
           </View>
 
-          <TouchableOpacity onPress={()=> navigation.goBack()}
-          style={{
-            height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
-          }}>
-
+          <TouchableOpacity onPress={() => navigation.goBack()}
+            style={{
+              height: 60, width: 60, borderRadius: 60, backgroundColor: "red", justifyContent: "center", alignItems: "center"
+            }}>
+            <MaterialCommunityIcons name="phone-hangup" size={24} color="white" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

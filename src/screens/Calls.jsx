@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, TouchableOpacity, Image, Modal, ScrollView, } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -17,16 +17,19 @@ const Data = [
         Ionicons: 'call-outline',
         title: 'Call',
         location: 'navigation.navigate("SelectContact")',
+
     },
     {
         id: '2',
         MaterialCommunityIcons: 'calendar-month',
         title: 'Schedule',
+
     },
     {
         id: '3',
         MaterialCommunityIcons: 'apps',
         title: 'Keypad',
+
     },
     {
         id: '4',
@@ -118,6 +121,17 @@ const Calls = () => {
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
+    const [modalVisible, setModalVisible] = useState(false);
+    const handlePress = (id, screen) => {
+        console.log('Pressed item with id:', id);
+        if (id === '1') {
+            navigation.navigate('SelectContact');
+        } else if (id === '2') {
+            setModalVisible(true);
+        } else {
+            // Handle other cases if needed
+        }
+    };
 
     return (
         <PaperProvider>
@@ -154,12 +168,13 @@ const Calls = () => {
                         <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}>
                             <Entypo name="circle-with-plus" size={24} color="green" />
                         </TouchableOpacity>
+
                     </View>
                     <Text style={{ color: "white", fontSize: 32, fontWeight: "bold", }}>Calls</Text>
 
                     <View style={{
                         width: "95%", height: 42, backgroundColor: "'rgba(255, 255, 255, 0.5)'", alignItems: "center", borderRadius: 10, flexDirection: "row",
-                        marginHorizontal: 10, gap: 5
+                        marginHorizontal: 10, gap: 5, paddingHorizontal: 10,
                     }}>
                         <EvilIcons name="search" size={24} color="white" />
                         <TextInput
@@ -176,20 +191,17 @@ const Calls = () => {
                                 <View style={styles.callicons}>
 
                                     {/* Call Icon */}
-                                    <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
+                                    <TouchableOpacity onPress={() => handlePress(item.id,)}
                                         style={{ position: 'absolute', bottom: 0, top: 0, right: 0, left: 0, justifyContent: "center", alignItems: "center" }}>
-                                      
-                                      { item.Ionicons ? 
-                                      (<Ionicons name={item.Ionicons} size={24} color="white" />) :
-                                      item.MaterialIcons ?
-                                          (<MaterialIcons name={item.MaterialIcons} size={24} color="black" />): 
-                                          (<MaterialCommunityIcons name={item.MaterialCommunityIcons} size={24} color="black" /> ) 
-                                      } 
+
+                                        {item.Ionicons ?
+                                            (<Ionicons name={item.Ionicons} size={24} color="white" />) :
+                                            item.MaterialIcons ?
+                                                (<MaterialIcons name={item.MaterialIcons} size={24} color="black" />) :
+                                                (<MaterialCommunityIcons name={item.MaterialCommunityIcons} size={24} color="black" />)
+                                        }
                                     </TouchableOpacity>
 
-                                    
-
-                                 
                                 </View>
                                 < View style={styles.calltitle}>
                                     <Text style={styles.callBartext}>{item.title}</Text>
@@ -224,10 +236,10 @@ const Calls = () => {
                                         </View>
                                     </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: "center", marginTop: -10, }}>
+                                    <View style={{ flexDirection: 'row', alignItems: "center", marginTop: -10, gap: 10 }}>
                                         <Text style={styles.time}>{item.time}</Text>
                                         <TouchableOpacity>
-                                            <MaterialIcons name="info-outline" size={24} color="gray" />
+                                            <MaterialIcons name="info-outline" size={20} color="gray" />
                                         </TouchableOpacity>
                                     </View>
 
@@ -237,6 +249,87 @@ const Calls = () => {
                         />
 
                     </View>
+
+                    <Modal visible={modalVisible}
+                        onRequestClose={() => setModalVisible(false)}
+                        animationType="slide"
+                        presentationStyle="formSheet"
+                        transparent={true}>
+                        <ScrollView>
+                            <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 22, borderTopRightRadius: 22, }}>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+                                    <TouchableOpacity   onPress={() => setModalVisible(false)}>
+                                        <Text style={{ fontSize: 21, color: "white" }}>
+                                            Cancel
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <Text style={{ fontSize: 21, color: "white", fontWeight: "bold" }}>
+                                        Schedule a call
+                                    </Text>
+                                    <TouchableOpacity>
+                                        <Text style={{ fontSize: 21, color: "white" }}>
+                                            Next
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: "100%", height: "30%", backgroundColor: "darkgray", borderRadius: 10, padding: 15, gap: 10, }}>
+                                    <View style={{ borderBottomWidth: 0.5, borderBottomColor: "gray", paddingBottom: 10, }}>
+                                        <Text>De King's Call</Text>
+                                    </View>
+                                    <View>
+                                        <TextInput
+                                            placeholder="Add description(optional)"
+                                            placeholderTextColor={"black"}
+                                            multiline={true}
+                                            style={{ fontSize: 15, height: 90, textAlignVertical: "top", }}
+                                        />
+                                    </View>
+                                    <View style={{ alignItems: "flex-end", }}>
+                                        <Text>2048</Text>
+                                    </View>
+                                </View>
+
+                                <View style={{
+                                    width: "100%", height: "25%",
+                                    backgroundColor: "darkgray", borderRadius: 10, padding: 15, gap: 20, marginTop: 10,
+                                }}>
+                                    <View style={{ borderBottomWidth: 0.5, borderBottomColor: "gray", paddingBottom: 10, }} >
+                                        <Text style={{ fontSize: 17 }}>Starts</Text>
+                                    </View>
+                                    <View style={{ borderBottomWidth: 0.5, borderBottomColor: "gray", paddingBottom: 10, }}>
+                                        <Text style={{ fontSize: 17 }}>Ends</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={{ fontSize: 17 }}>
+                                            Include end time
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingLeft: 10 }}>
+                                    <Text style={{ fontSize: 15, color: "gray" }}>
+                                        Event with cal links can't be more than one year in {"\n"}the future.
+                                    </Text>
+                                </View>
+                                <TouchableOpacity style={{  width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "center", borderRadius: 10, padding: 10 }}>
+                                    <Text style={{ fontSize: 17, color: "white" }}>
+                                        Call type
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "center", borderRadius: 10, padding: 10 }}>
+                                    <Text style={{ fontSize: 17, color: "white" }}>
+                                        Reminder
+                                    </Text>
+                                </TouchableOpacity>
+                                <View style={{ paddingLeft: 10 }}>
+                                    <Text style={{ fontSize: 15, color: "gray" }}>
+                                        Guests also get notified at the time of the event.
+                                    </Text>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </Modal>
+
                 </SafeAreaView >
             </SafeAreaProvider >
         </PaperProvider>
@@ -297,7 +390,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         height: 53,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomColor: "gray"
     },
 })
