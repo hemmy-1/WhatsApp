@@ -253,9 +253,8 @@ const Calls = () => {
                     <Modal visible={modalVisible}
                         onRequestClose={() => setModalVisible(false)}
                         animationType="slide"
-                        presentationStyle="formSheet"
+                        presentationStyle="pageSheet"
                         transparent={true}>
-                        <ScrollView>
                             <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 22, borderTopRightRadius: 22, }}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                                     <TouchableOpacity   onPress={() => setModalVisible(false)}>
@@ -272,18 +271,20 @@ const Calls = () => {
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ width: "100%", height: "30%", backgroundColor: "darkgray", borderRadius: 10, padding: 15, gap: 10, }}>
+                                <View style={{ width: "100%", height:180, backgroundColor: "darkgray", borderRadius: 10, padding: 15, gap: 10,
+                                    overflow:"hidden"
+                                 }}>
                                     <View style={{ borderBottomWidth: 0.5, borderBottomColor: "gray", paddingBottom: 10, }}>
                                         <Text>De King's Call</Text>
                                     </View>
-                                    <View>
+                                
                                         <TextInput
                                             placeholder="Add description(optional)"
                                             placeholderTextColor={"black"}
                                             multiline={true}
-                                            style={{ fontSize: 15, height: 90, textAlignVertical: "top", }}
+                                            style={{ fontSize: 15,  textAlignVertical: "top", flex:1 }}
                                         />
-                                    </View>
+                                  
                                     <View style={{ alignItems: "flex-end", }}>
                                         <Text>2048</Text>
                                     </View>
@@ -327,7 +328,6 @@ const Calls = () => {
                                     </Text>
                                 </View>
                             </View>
-                        </ScrollView>
                     </Modal>
 
                 </SafeAreaView >

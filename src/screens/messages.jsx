@@ -168,7 +168,7 @@ export default function Messages({ route }) {
                 />
                 <Menu.Item
                   leadingIcon="video-outline"
-                  onPress={() => { }}
+                  onPress={() => navigation.navigate('Camera')}
                   title="Video call"
                   titleStyle={styles.menuText}
                 />
