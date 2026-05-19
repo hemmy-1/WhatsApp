@@ -256,6 +256,34 @@ export default function Chats() {
 
 
 
+    const ListHeader = () => (
+        <View>
+            {/* Horizontal Status List */}
+            <View style={{ marginVertical: 10 }}>
+                <FlatList
+                    data={Data}
+                    renderItem={messageStatusVIew}
+                    keyExtractor={item => item.id}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+
+            {/* Archived Button */}
+            <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10, marginBottom: 10 }}>
+                <TouchableOpacity
+                    onPress={() => serArchivedModal(true)}
+                    style={{ flexDirection: 'row', alignItems: 'center' }}
+                >
+                    <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
+                    <Text style={{ color: 'white', marginStart: 10 }}>Archived</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+
+
+
 
     return (
         <PaperProvider>
@@ -349,42 +377,34 @@ export default function Chats() {
 
                     </View>
 
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={{ marginVertical: 10, flex: 1 }}>
-                            <FlatList
-                                data={Data}
-                                renderItem={messageStatusVIew}
-                                keyExtractor={item => item.id}
-                                horizontal={true}
-                                scrollEnabled={false}
-                            />
+                    
 
-                        </View>
 
-                        <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
-                            <TouchableOpacity onPress={() => serArchivedModal(true)}
-                                style={{ flexDirection: 'row', alignItems: 'center', }}>
-                                <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
-                                <Text style={{
-                                    color: 'white', marginStart: 10
-                                }}>
-                                    Archived
-                                </Text>
-                            </TouchableOpacity>
-                            <View style={{}}>
-                                <FlatList
-                                    data={MainChat}
-                                    renderItem={MainChatView}
-                                    keyExtractor={item => item.id} />
-                            </View>
-                        </View>
-                    </ScrollView>
+
+                    <View style={{ flex: 1, backgroundColor: '#0b141a' }}>
+                        <FlatList
+                            data={MainChat}
+                            renderItem={MainChatView}
+                            keyExtractor={item => item.id}
+                            ListHeaderComponent={ListHeader} // This puts the status list at the top
+                            contentContainerStyle={{ paddingBottom: 20 }}
+                            
+                        />
+                    </View>
+
+
+
+
+
+
+                     
 
                     <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
                         style={{
                             backgroundColor: '#25D366', height: 55, width: 55,
-                            borderWidth: 1, borderRadius: 10, position: 'relative',
-                            top: 180, left: 390, alignItems: 'center', justifyContent: 'center'
+                            borderWidth: 1, borderRadius: 10, position: 'absolute',
+                             alignItems: 'center', justifyContent: 'center',
+                             zIndex: 5, top: '95%', left:'88%' 
                         }}>
                         <MaterialCommunityIcons name="message-plus-outline" size={24} color="black" />
 
@@ -434,14 +454,14 @@ export default function Chats() {
                     <Modal
                         visible={archivedModal}
                         onRequestClose={() => serArchivedModal(false)}>
-                        <View style={{ flex: 1, backgroundColor: 'black', paddingHorizontal:10 }}>
+                        <View style={{ flex: 1, backgroundColor: 'black', paddingHorizontal: 10 }}>
                             <View style={{ height: 60, width: '100%', backgroundColor: 'black', justifyContent: 'center' }}>
                                 <TouchableOpacity onPress={() => serArchivedModal(false)}>
                                     <Ionicons name="arrow-back" size={30} color="white" />
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{paddingHorizontal:5}}>
+                            <View style={{ paddingHorizontal: 5 }}>
                                 <FlatList
                                     data={MainChat}
                                     renderItem={MainChatView}
@@ -453,8 +473,7 @@ export default function Chats() {
 
                     <CameraModal facing={'front'}
                         onClose={() => setShowCamera(false)}
-                        visible={showCamera}
-                    />
+                        visible={showCamera} />
 
 
 
