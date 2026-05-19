@@ -4,7 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Entypo from '@expo/vector-icons/Entypo';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
+
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useNavigation } from "@react-navigation/native";
@@ -124,7 +124,7 @@ const Calls = () => {
 
     const [scheduleModalVisible, setScheduleModalVisible] = useState(false);
     const [keypadModalVisible, setKeypadModalVisible] = useState(false);
-
+    const [favoritesModalVissible, setFavoritesVissible] = useState(false);
     const handlePress = (id, screen) => {
         console.log('Pressed item with id:', id);
         if (id === '1') {
@@ -133,6 +133,9 @@ const Calls = () => {
             setScheduleModalVisible(true);
         } else if (id === '3') {
             setKeypadModalVisible(true);
+        }
+        else if (id === '4') {
+            setFavoritesVissible(true);
         }
     };
 
@@ -370,16 +373,43 @@ const Calls = () => {
 
                                     </View>
                                 </View>
+
+
+                                {/* Date Pickers */}
+                                {showStartPicker && (
+                                    <DateTimePicker
+                                        value={startDate}
+                                        mode="datetime"
+                                        display="default"
+                                        onChange={(e, date) => {
+                                            setShowStartPicker(false);
+                                            if (date) setStartDate(date);
+                                        }}
+                                    />
+                                )}
+
+                                {showEndPicker && (
+                                    <DateTimePicker
+                                        value={endDate}
+                                        mode="datetime"
+                                        display="default"
+                                        onChange={(e, date) => {
+                                            setShowEndPicker(false);
+                                            if (date) setEndDate(date);
+                                        }}
+                                    />
+                                )}
+
                                 <View style={{ paddingLeft: 10 }}>
                                     <Text style={{ fontSize: 15, color: "gray" }}>
                                         Event with cal links can't be more than one year in {"\n"}the future.
                                     </Text>
                                 </View>
-                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between",flexDirection:"row", borderRadius: 10, padding: 10 }}>
+                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10 }}>
                                     <Text style={{ fontSize: 17, color: "white" }}>
                                         Call type
                                     </Text>
-                                    <View style={{flexDirection:"row",alignItems:"center",gap:5}}>
+                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
                                         <Text>15 minutes before</Text>
                                         <View>
                                             <Ionicons name="chevron-expand-outline" size={24} color="black" />
@@ -387,11 +417,11 @@ const Calls = () => {
                                     </View>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray",  borderRadius: 10, padding: 10 }}>
+                                <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10 }}>
                                     <Text style={{ fontSize: 17, color: "white" }}>
                                         Reminder
                                     </Text>
-                                    <View style={{flexDirection:"row",alignItems:"center",gap:5}}>
+                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
                                         <Text>15 minutes before</Text>
                                         <View>
                                             <Ionicons name="chevron-expand-outline" size={24} color="black" />
@@ -406,30 +436,6 @@ const Calls = () => {
                             </View>
                         </ScrollView>
 
-                        {/* Date Pickers */}
-                        {showStartPicker && (
-                          <DateTimePicker
-                            value={startDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(e, date) => {
-                              setShowStartPicker(false);
-                              if (date) setStartDate(date);
-                            }}
-                          />
-                        )}
-
-                        {showEndPicker && (
-                          <DateTimePicker
-                            value={endDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(e, date) => {
-                              setShowEndPicker(false);
-                              if (date) setEndDate(date);
-                            }}
-                          />
-                        )}
                     </Modal>
 
 
@@ -563,6 +569,38 @@ const Calls = () => {
                         </View>
                     </Modal>
 
+
+                    <Modal visible={favoritesModalVissible}
+                        onRequestClose={() => setFavoritesVissible(false)}
+                        animationType="slide"
+                        presentationStyle="pageSheet"
+                        transparent={false}>
+                        <SafeAreaView style={styles.Favorites}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+                                <TouchableOpacity onPress={() => setFavoritesVissible(false)} style={{ marginTop: 15 }}>
+                                    <Text style={{ fontSize: 25 }}>
+                                        Cancel
+                                    </Text>
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 22 }}>Add favorite</Text>
+                                <TouchableOpacity>
+                                    <Text style={{ fontSize: 25 }}>Done</Text>
+                                </TouchableOpacity >
+                            </View>
+                            <View style={{ width: "100%", height: 40, backgroundColor: "lightgray", borderRadius: 10, flexDirection: "row", alignItems: "center", paddingHorizontal: 10, gap: 10, marginTop: 18 }}>
+                                <EvilIcons name="search" size={24} color="black" />
+                                <TextInput
+                                placeholder='Search name or number'
+                                placeholderTextColor={"gray"}
+                                style={{ fontSize: 18, flex: 1, }}
+                                />
+                            </View>
+                            <View style={{width:"100%",height:60,backgroundColor:"gray",}}>
+
+                            </View>
+                        </SafeAreaView>
+                    </Modal>
+
                 </SafeAreaView >
             </SafeAreaProvider >
         </PaperProvider>
@@ -681,6 +719,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#6f6fd6",
         borderRadius: 10,
         padding: 15,
+    },
+
+    Favorites: {
+        flex: 1,
+        backgroundColor: "white",
+        padding: 8,
     },
 })
 
