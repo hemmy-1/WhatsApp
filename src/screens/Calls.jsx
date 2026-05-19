@@ -275,7 +275,7 @@ const Calls = () => {
                     <Modal visible={scheduleModalVisible}
                         onRequestClose={() => setScheduleModalVisible(false)}
                         animationType="slide"
-                        presentationStyle="pageSheet"
+                        presentationStyle="pageSheet"                       
                         transparent={false}>
                         <ScrollView>
                             <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 8, borderTopRightRadius: 8, }}>

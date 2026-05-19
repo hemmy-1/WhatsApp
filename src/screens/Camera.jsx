@@ -110,7 +110,7 @@ const Camera = () => {
               <Ionicons name="mic-off-sharp" size={24} color="white" />
             </View>
 
-            <TouchableOpacity onPress={() => navigation.goBack()}
+            <TouchableOpacity onPress={() => navigation.goBack('Calls')}
               style={{
                 height: 55, width: 55, borderRadius: 55, backgroundColor: "red", justifyContent: "center", alignItems: "center"
               }}>

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Modal, TextInput, TouchableOpacity, FlatList, Image, TouchableWithoutFeedback, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, Modal, TextInput, TouchableOpacity, FlatList, Image, TouchableWithoutFeedback, ImageBackground, ScrollView } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -15,6 +15,8 @@ import CameraModal from "../components/CameraModal";
 
 export default function Chats() {
 
+
+    const [archivedModal, serArchivedModal] = useState(false)
     const [permission, requestPermission] = useCameraPermissions();
     const [showCamera, setShowCamera] = useState(false);
 
@@ -254,6 +256,34 @@ export default function Chats() {
 
 
 
+    const ListHeader = () => (
+        <View>
+            {/* Horizontal Status List */}
+            <View style={{ marginVertical: 10 }}>
+                <FlatList
+                    data={Data}
+                    renderItem={messageStatusVIew}
+                    keyExtractor={item => item.id}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                />
+            </View>
+
+            {/* Archived Button */}
+            <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10, marginBottom: 10 }}>
+                <TouchableOpacity
+                    onPress={() => serArchivedModal(true)}
+                    style={{ flexDirection: 'row', alignItems: 'center' }}
+                >
+                    <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
+                    <Text style={{ color: 'white', marginStart: 10 }}>Archived</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+
+
+
 
     return (
         <PaperProvider>
@@ -340,42 +370,41 @@ export default function Chats() {
                         <TextInput
                             placeholder="Ask Meta AI or Search"
                             placeholderTextColor={'white'}
-                            inputMode="search" />
+                            inputMode="search"
+                            scrollEnabled={false}
+                            style={{ color: 'white', width: '100%' }}
+                            showsHorizontalScrollIndicator={false} />
 
                     </View>
 
-                    <View style={{ marginVertical: 10 }}>
+                    
+
+
+
+                    <View style={{ flex: 1, backgroundColor: '#0b141a' }}>
                         <FlatList
-                            data={Data}
-                            renderItem={messageStatusVIew}
+                            data={MainChat}
+                            renderItem={MainChatView}
                             keyExtractor={item => item.id}
-                            horizontal={true}
+                            ListHeaderComponent={ListHeader} // This puts the status list at the top
+                            contentContainerStyle={{ paddingBottom: 20 }}
+                            
                         />
-
                     </View>
 
-                    <View style={{ marginTop: 10, gap: 15, paddingHorizontal: 10 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                            <MaterialCommunityIcons name="archive-arrow-down-outline" size={24} color="white" />
-                            <Text style={{
-                                color: 'white', marginStart: 10
-                            }}>
-                                Archived
-                            </Text>
-                        </View>
-                        <View style={{}}>
-                            <FlatList
-                                data={MainChat}
-                                renderItem={MainChatView}
-                                keyExtractor={item => item.id} />
-                        </View>
-                    </View>
+
+
+
+
+
+                     
 
                     <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
                         style={{
                             backgroundColor: '#25D366', height: 55, width: 55,
-                            borderWidth: 1, borderRadius: 10, position: 'relative',
-                            top: 180, left: 390, alignItems: 'center', justifyContent: 'center'
+                            borderWidth: 1, borderRadius: 10, position: 'absolute',
+                             alignItems: 'center', justifyContent: 'center',
+                             zIndex: 5, top: '95%', left:'88%' 
                         }}>
                         <MaterialCommunityIcons name="message-plus-outline" size={24} color="black" />
 
@@ -422,10 +451,29 @@ export default function Chats() {
                         </TouchableOpacity>
                     </Modal>
 
+                    <Modal
+                        visible={archivedModal}
+                        onRequestClose={() => serArchivedModal(false)}>
+                        <View style={{ flex: 1, backgroundColor: 'black', paddingHorizontal: 10 }}>
+                            <View style={{ height: 60, width: '100%', backgroundColor: 'black', justifyContent: 'center' }}>
+                                <TouchableOpacity onPress={() => serArchivedModal(false)}>
+                                    <Ionicons name="arrow-back" size={30} color="white" />
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ paddingHorizontal: 5 }}>
+                                <FlatList
+                                    data={MainChat}
+                                    renderItem={MainChatView}
+                                    keyExtractor={item => item.id} />
+                            </View>
+                        </View>
+
+                    </Modal>
+
                     <CameraModal facing={'front'}
                         onClose={() => setShowCamera(false)}
-                        visible={showCamera}
-                    />
+                        visible={showCamera} />
 
 
 
@@ -455,19 +503,10 @@ const styles = StyleSheet.create({
         gap: 5,
         paddingStart: 10,
         marginTop: 15,
-        backgroundColor: '#2f2e2e'
+        backgroundColor: '#2f2e2e',
     },
 
-    // modalView: {
-    //     backgroundColor: 'white',
-    //     height: 300,
-    //     width: 280,
-    //     alignItems: 'center',
-    //     position: 'absolute',
-    //     top: 100,
-    //     left: 100,
-    //     marginBottom: 300
-    // },
+
     button: {
         borderRadius: 20,
         padding: 10,
