@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput, FlatList, ScrollView } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -8,10 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CameraModal from '../components/CameraModal';
+
+
 
 export default function Messages({ route }) {
 
@@ -257,54 +257,61 @@ export default function Messages({ route }) {
               <View style={{ flex: 1 }}>
 
                 {/* MESSAGE AREA: This flex:1 View pushes the input down */}
-                <View style={{ flex: 1 }}>
-                  <FlatList
-                    data={messages}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                      <View style={{
-                        flexDirection: 'row',
-                        justifyContent: item.sender === 'me' ? 'flex-end' : 'flex-start',
-                        marginVertical: 5,
-                        paddingHorizontal: 10
-                      }}>
+
+
+                
+
+                  <View style={{ flex: 1 }}>
+                    <FlatList
+                      data={messages}
+                      keyExtractor={(item) => item.id.toString()}
+                      renderItem={({ item }) => (
                         <View style={{
-                          maxWidth: '75%',
-                          backgroundColor: item.sender === 'me' ? '#005C4B' : '#1f2c33',
-                          borderRadius: 10,
-                          padding: item.type === 'image' ? 4 : 8, // Less padding for images
+                          flexDirection: 'row',
+                          justifyContent: item.sender === 'me' ? 'flex-end' : 'flex-start',
+                          marginVertical: 5,
+                          paddingHorizontal: 10
                         }}>
-
-                          {/* Logic to switch between Text and Image */}
-                          {item.type === 'image' ? (
-                            <Image
-                              source={{ uri: item.text }}
-                              style={{ width: 250, height: 250, borderRadius: 8 }}
-                              resizeMode="cover"
-                            />
-                          ) : (
-                            <Text style={{ color: 'white', fontSize: 15 }}>{item.text}</Text>
-                          )}
-
-                          <Text style={{
-                            color: '#aaa',
-                            fontSize: 11,
-                            marginTop: 4,
-                            textAlign: 'right',
-                            marginRight: 5,
-                            marginBottom: 2
+                          <View style={{
+                            maxWidth: '75%',
+                            backgroundColor: item.sender === 'me' ? '#005C4B' : '#1f2c33',
+                            borderRadius: 10,
+                            padding: item.type === 'image' ? 4 : 8, // Less padding for images
                           }}>
-                            {new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                          </Text>
+
+                            {/* Logic to switch between Text and Image */}
+                            {item.type === 'image' ? (
+                              <Image
+                                source={{ uri: item.text }}
+                                style={{ width: 250, height: 250, borderRadius: 8 }}
+                                resizeMode="cover"
+                              />
+                            ) : (
+                              <Text style={{ color: 'white', fontSize: 15 }}>{item.text}</Text>
+                            )}
+
+                            <Text style={{
+                              color: '#aaa',
+                              fontSize: 11,
+                              marginTop: 4,
+                              textAlign: 'right',
+                              marginRight: 5,
+                              marginBottom: 2
+                            }}>
+                              {new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    )}
-                    inverted
-                    scrollEnabled
-                  />
-                </View>
+                      )}
+                      inverted
+                      scrollEnabled={false}
 
+                    />
+                  </View>
 
+                 
+
+                      
                 {attachment && (
                   <View style={styles.attachmentMenu}>
                     <View style={{
