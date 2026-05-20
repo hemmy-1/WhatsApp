@@ -473,7 +473,7 @@ export default function Chats() {
 
                     <CameraModal facing={'front'}
                         onClose={() => {
-                            showToast('info', 'Camera permission denied!');
+                            showToast('infox', 'Camera permission denied!');
                             setShowCamera(false)}
                         }
                         visible={showCamera} />
