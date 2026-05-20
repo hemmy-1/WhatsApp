@@ -20,7 +20,8 @@
         "foregroundImage": "./src/assets/wlogo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.hemmy1.WhatsApp"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
