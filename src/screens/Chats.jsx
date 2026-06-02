@@ -10,6 +10,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CameraModal from "../components/CameraModal";
+import { showToast } from "../utils/utils";
 
 
 
@@ -21,6 +22,7 @@ export default function Chats() {
     const [showCamera, setShowCamera] = useState(false);
 
     const handleCameraPress = async () => {
+        // showToast('success', 'Camera permission granted!');
         if (!permission?.granted) {
             const { granted } = await requestPermission();
             if (!granted) return;
@@ -31,7 +33,9 @@ export default function Chats() {
     const [visible, setVisible] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(true);
     const openMenu = () => setVisible(true);
-    const closeMenu = () => setVisible(false)
+    const closeMenu = () => {
+        setVisible(false)
+    };
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -377,7 +381,7 @@ export default function Chats() {
 
                     </View>
 
-                    
+
 
 
 
@@ -386,25 +390,21 @@ export default function Chats() {
                             data={MainChat}
                             renderItem={MainChatView}
                             keyExtractor={item => item.id}
-                            ListHeaderComponent={ListHeader} // This puts the status list at the top
+                            ListHeaderComponent={ListHeader}
                             contentContainerStyle={{ paddingBottom: 20 }}
-                            
+
                         />
                     </View>
 
 
 
 
-
-
-                     
-
                     <TouchableOpacity onPress={() => navigation.navigate('SelectContact')}
                         style={{
                             backgroundColor: '#25D366', height: 55, width: 55,
                             borderWidth: 1, borderRadius: 10, position: 'absolute',
-                             alignItems: 'center', justifyContent: 'center',
-                             zIndex: 5, top: '95%', left:'88%' 
+                            alignItems: 'center', justifyContent: 'center',
+                            zIndex: 5, top: '95%', left: '88%'
                         }}>
                         <MaterialCommunityIcons name="message-plus-outline" size={24} color="black" />
 
@@ -472,7 +472,10 @@ export default function Chats() {
                     </Modal>
 
                     <CameraModal facing={'front'}
-                        onClose={() => setShowCamera(false)}
+                        onClose={() => {
+                            showToast('infox', 'Camera permission denied!');
+                            setShowCamera(false)}
+                        }
                         visible={showCamera} />
 
 

@@ -20,10 +20,16 @@
         "foregroundImage": "./src/assets/wlogo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.hemmy1.WhatsApp"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1969a23c-5d89-4c43-bbc2-0e38f4d8f322"
+      }
     }
   }
 }
