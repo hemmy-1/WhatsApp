@@ -9,8 +9,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Dailycall = () => {
-
+const Dailycall = ({route}) => {
+const {DataCall} = route.params
   const [callStatus, setCallStatus] = useState('calling') // calling | connected | ended
   const soundRef = useRef(null)
   const navigation = useNavigation()
@@ -82,7 +82,7 @@ const Dailycall = () => {
             <AntDesign name="arrows-alt" size={24} color="black" />
           </View>
           <View>
-            <Text style={{ color: "white", fontSize: 24, }}>Car Dealer</Text>
+            <Text style={{ color: "white", fontSize: 24, }}>{DataCall.name}</Text>
             <Text style={{ color: "white", fontSize: 16, textAlign: "center" }}>Calling...</Text>
           </View>
           <View style={styles.box}>
@@ -92,8 +92,8 @@ const Dailycall = () => {
 
         {/* Middle Layer*/}
         <View style={{ alignItems: "center", justifyContent: "center", flex: 1, }}>
-          <View style={{ backgroundColor: "#774e41", height: 200, width: 200, borderRadius: 200, alignItems: "center", justifyContent: "center", }}>
-            <Image source={require("../assets/icons8-avatar-100.png")} style={{ tintColor: "#f9d5ca", marginBottom: 15 }} />
+          <View style={{   alignItems: "center", justifyContent: "center", }}>
+            <Image source={DataCall.image} style={{  marginBottom: 15,borderRadius:200, height:200,width:200 }} />
           </View>
         </View>
 
