@@ -92,7 +92,7 @@ const {DataCall} = route.params
 
         {/* Middle Layer*/}
         <View style={{ alignItems: "center", justifyContent: "center", flex: 1, }}>
-          <View style={{   alignItems: "center", justifyContent: "center", }}>
+          <View style={{ alignItems: "center", justifyContent: "center", }}>
             <Image source={DataCall.image} style={{  marginBottom: 15,borderRadius:200, height:200,width:200 }} />
           </View>
         </View>
