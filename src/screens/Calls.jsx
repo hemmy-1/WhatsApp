@@ -401,7 +401,7 @@ const Calls = () => {
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                            <View style={{ paddingLeft: 10 }}>
+                            <View style={{ paddingLeft: 10,marginTop:10 }}>
                                 <Text style={{ fontSize: 15, color: "gray" }}>
                                     Guests also get notified at the time of the event.
                                 </Text>
@@ -458,42 +458,7 @@ const Calls = () => {
                                         if (date) setEndDate(date);
                                     }}
                                 />
-                            )}
-
-                            <View style={{ paddingLeft: 10 }}>
-                                <Text style={{ fontSize: 15, color: "gray" }}>
-                                    Event with cal links can't be more than one year in {"\n"}the future.
-                                </Text>
-                            </View>
-                            <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 17, color: "white" }}>
-                                    Call type
-                                </Text>
-                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                    <Text>15 minutes before</Text>
-                                    <View>
-                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 17, color: "white" }}>
-                                    Reminder
-                                </Text>
-                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                    <Text>15 minutes before</Text>
-                                    <View>
-                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={{ paddingLeft: 10 }}>
-                                <Text style={{ fontSize: 15, color: "gray" }}>
-                                    Guests also get notified at the time of the event.
-                                </Text>
-                            </View>
-                        
+                            )}  
                     </ScrollView>
 
                 </Modal >
