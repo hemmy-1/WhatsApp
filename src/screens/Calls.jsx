@@ -241,7 +241,7 @@ const Calls = () => {
                         <FlatList
                             data={DataCall}
                             renderItem={({ item }) => (<TouchableOpacity
-                                onPress={() => navigation.navigate('Dailycall')}
+                                onPress={() => navigation.navigate('Dailycall', { DataCall: item })}
                                 style={styles.callContainer}>
 
                                 <Image source={item.image}
@@ -275,335 +275,396 @@ const Calls = () => {
                     <Modal visible={scheduleModalVisible}
                         onRequestClose={() => setScheduleModalVisible(false)}
                         animationType="slide"
-                        presentationStyle="pageSheet"                       
-                        transparent={false}>
-                        <ScrollView>
-                            <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 8, borderTopRightRadius: 8, }}>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
-                                    <TouchableOpacity onPress={() => setScheduleModalVisible(false)}>
-                                        <Text style={{ fontSize: 21, color: "white" }}>
-                                            Cancel
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <Text style={{ fontSize: 21, color: "white", fontWeight: "bold" }}>
-                                        Schedule a call
-                                    </Text>
-                                    <TouchableOpacity>
-                                        <Text style={{ fontSize: 21, color: "white" }}>
-                                            Next
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.card}>
-
-                                    <TextInput
-                                        placeholder='Event title'
-                                        placeholderTextColor={"gray"}
-                                        value={title}
-                                        onChangeText={setTitle}
-                                        maxLength={maxChars}
-                                        style={{ fontSize: 18, }}
-                                    />
-
-
-                                    <View style={styles.Divider} />
-                                    <TextInput
-                                        placeholder="Add description(optional)"
-                                        placeholderTextColor={"black"}
-                                        multiline
-                                        // value={description}
-                                        maxLength={maxChars}
-                                        style={{ fontSize: 18, height: 60, textAlignVertical: "top", }}
-
-
-                                    />
-
-                                    <Text style={styles.charCount}>{maxChars - description.length}</Text>
-                                </View>
-
-
-                                {/*Date and Time */}
-
-
-                                <View style={styles.card}>
-                                    <View style={styles.row}>
-                                        <Text style={styles.label}>Starts</Text>
-                                        <View style={{ flexDirection: "row", }}>
-                                            <TouchableOpacity onPress={() => setShowStartPicker(true)} >
-                                                <Text style={styles.pill}>
-                                                    {startDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => setShowStartPicker(true)}>
-                                                <Text style={styles.pill}>
-                                                    {startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-
-                                    <View style={styles.Divider} />
-
-                                    <View style={styles.row}>
-                                        <Text style={styles.label}>Ends</Text>
-                                        <View style={{ flexDirection: "row", }}>
-                                            <TouchableOpacity onPress={() => setShowEndPicker(true)} style={{ paddingLeft: 58 }}>
-                                                <Text style={styles.pill}>
-                                                    {endDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => setShowEndPicker(true)} >
-                                                <Text style={styles.pill}>
-                                                    {endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-
-                                    <View style={styles.Divider} />
-                                    <View style={styles.row}>
-                                        <Text style={{ fontSize: 17 }}>
-                                            Include end time
-                                        </Text>
-                                        <Switch
-                                            value={includeEndTime}
-                                            onValueChange={setIncludeEndTime}
-                                            trackColor={{ false: "#ccc", true: "#34c759" }}
-                                        />
-
-                                    </View>
-                                </View>
-
-
-                                {/* Date Pickers */}
-                                {showStartPicker && (
-                                    <DateTimePicker
-                                        value={startDate}
-                                        mode="datetime"
-                                        display="default"
-                                        onChange={(e, date) => {
-                                            setShowStartPicker(false);
-                                            if (date) setStartDate(date);
-                                        }}
-                                    />
-                                )}
-
-                                {showEndPicker && (
-                                    <DateTimePicker
-                                        value={endDate}
-                                        mode="datetime"
-                                        display="default"
-                                        onChange={(e, date) => {
-                                            setShowEndPicker(false);
-                                            if (date) setEndDate(date);
-                                        }}
-                                    />
-                                )}
-
-                                <View style={{ paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: "gray" }}>
-                                        Event with cal links can't be more than one year in {"\n"}the future.
-                                    </Text>
-                                </View>
-                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10 }}>
-                                    <Text style={{ fontSize: 17, color: "white" }}>
-                                        Call type
-                                    </Text>
-                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                        <Text>15 minutes before</Text>
-                                        <View>
-                                            <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10 }}>
-                                    <Text style={{ fontSize: 17, color: "white" }}>
-                                        Reminder
-                                    </Text>
-                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                        <Text>15 minutes before</Text>
-                                        <View>
-                                            <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={{ paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: "gray" }}>
-                                        Guests also get notified at the time of the event.
-                                    </Text>
-                                </View>
-                            </View>
-                        </ScrollView>
-
-                    </Modal>
-
-
-                    <Modal visible={keypadModalVisible}
-                        onRequestClose={() => setKeypadModalVisible(false)}
-                        animationType="slide"
                         presentationStyle="pageSheet"
                         transparent={false}>
-                        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)", padding: 15, }} >
+                        <ScrollView style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, borderTopLeftRadius: 8, borderTopRightRadius: 8, }} >
 
-                            <TouchableOpacity onPress={() => setKeypadModalVisible(false)} style={{ marginTop: 15 }}>
-                                <Text style={{ fontSize: 25 }}>Cancel</Text>
-                            </TouchableOpacity>
-                            <View style={styles.KeypadContainer}>
-
-                                <View style={{ flexDirection: "row", gap: 30 }}>
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            1
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            2
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            A B C
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            3
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            D E F
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            4
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            G H I
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            5
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            J K L
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            6
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            M N O
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            7
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            P Q R S
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            8
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            T U V
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            9
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            W X Y Z
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-
-
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            *
-                                        </Text>
-
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            0
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            +
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            #
-                                        </Text>
-
-                                    </TouchableOpacity>
-                                </View>
-                                <TouchableOpacity style={{ backgroundColor: "lightgreen", height: 75, width: 75, borderRadius: 75, }}>
-
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Modal>
-
-
-                    <Modal visible={favoritesModalVissible}
-                        onRequestClose={() => setFavoritesVissible(false)}
-                        animationType="slide"
-                        presentationStyle="pageSheet"
-                        transparent={false}>
-                        <SafeAreaView style={styles.Favorites}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
-                                <TouchableOpacity onPress={() => setFavoritesVissible(false)} style={{ marginTop: 15 }}>
-                                    <Text style={{ fontSize: 25 }}>
+                                <TouchableOpacity onPress={() => setScheduleModalVisible(false)}>
+                                    <Text style={{ fontSize: 21, color: "white" }}>
                                         Cancel
                                     </Text>
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 22 }}>Add favorite</Text>
+                                <Text style={{ fontSize: 21, color: "white", fontWeight: "bold" }}>
+                                    Schedule a call
+                                </Text>
                                 <TouchableOpacity>
-                                    <Text style={{ fontSize: 25 }}>Done</Text>
-                                </TouchableOpacity >
+                                    <Text style={{ fontSize: 21, color: "white" }}>
+                                        Next
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ width: "100%", height: 40, backgroundColor: "lightgray", borderRadius: 10, flexDirection: "row", alignItems: "center", paddingHorizontal: 10, gap: 10, marginTop: 18 }}>
-                                <EvilIcons name="search" size={24} color="black" />
+                            <View style={styles.card}>
+
                                 <TextInput
+                                    placeholder='Event title'
+                                    placeholderTextColor={"gray"}
+                                    value={title}
+                                    onChangeText={setTitle}
+                                    maxLength={maxChars}
+                                    style={{ fontSize: 18, }}
+                                />
+
+
+                                <View style={styles.Divider} />
+                                <TextInput
+                                    placeholder="Add description(optional)"
+                                    placeholderTextColor={"black"}
+                                    multiline
+                                    // value={description}
+                                    maxLength={maxChars}
+                                    style={{ fontSize: 18, height: 60, textAlignVertical: "top", }}
+
+
+                                />
+
+                                <Text style={styles.charCount}>{maxChars - description.length}</Text>
+                            </View>
+
+
+                            {/*Date and Time */}
+
+
+                            <View style={styles.card}>
+                                <View style={styles.row}>
+                                    <Text style={styles.label}>Starts</Text>
+                                    <View style={{ flexDirection: "row", }}>
+                                        <TouchableOpacity onPress={() => setShowStartPicker(true)} >
+                                            <Text style={styles.pill}>
+                                                {startDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setShowStartPicker(true)}>
+                                            <Text style={styles.pill}>
+                                                {startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                <View style={styles.Divider} />
+
+                                <View style={styles.row}>
+                                    <Text style={styles.label}>Ends</Text>
+                                    <View style={{ flexDirection: "row", }}>
+                                        <TouchableOpacity onPress={() => setShowEndPicker(true)} style={{ paddingLeft: 58 }}>
+                                            <Text style={styles.pill}>
+                                                {endDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setShowEndPicker(true)} >
+                                            <Text style={styles.pill}>
+                                                {endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                <View style={styles.Divider} />
+                                <View style={styles.row}>
+                                    <Text style={{ fontSize: 17 }}>
+                                        Include end time
+                                    </Text>
+                                    <Switch
+                                        value={includeEndTime}
+                                        onValueChange={setIncludeEndTime}
+                                        trackColor={{ false: "#ccc", true: "#34c759" }}
+                                    />
+
+                                </View>
+                            </View>
+                            <View style={{ paddingLeft: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Event with cal links can't be more than one year in {"\n"}the future.
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Call type
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Reminder
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{ paddingLeft: 10 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Guests also get notified at the time of the event.
+                                </Text>
+                            </View>
+
+
+
+
+
+
+                            {/* Date Pickers */}
+                            {showStartPicker && (
+                                <DateTimePicker
+                                    value={startDate}
+                                    mode="datetime"
+                                    display="default"
+                                    onChange={(e, date) => {
+                                        setShowStartPicker(false);
+                                        if (date) setStartDate(date);
+                                    }}
+                                />
+                            )}
+                            {/* Date Pickers */}
+                            {showStartPicker && (
+                                <DateTimePicker
+                                    value={startDate}
+                                    mode="datetime"
+                                    display="default"
+                                    onChange={(e, date) => {
+                                        setShowStartPicker(false);
+                                        if (date) setStartDate(date);
+                                    }}
+                                />
+                            )}
+
+                            {showEndPicker && (
+                                <DateTimePicker
+                                    value={endDate}
+                                    mode="datetime"
+                                    display="default"
+                                    onChange={(e, date) => {
+                                        setShowEndPicker(false);
+                                        if (date) setEndDate(date);
+                                    }}
+                                />
+                            )}
+                            {showEndPicker && (
+                                <DateTimePicker
+                                    value={endDate}
+                                    mode="datetime"
+                                    display="default"
+                                    onChange={(e, date) => {
+                                        setShowEndPicker(false);
+                                        if (date) setEndDate(date);
+                                    }}
+                                />
+                            )}
+
+                            <View style={{ paddingLeft: 10 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Event with cal links can't be more than one year in {"\n"}the future.
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Call type
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Reminder
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{ paddingLeft: 10 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Guests also get notified at the time of the event.
+                                </Text>
+                            </View>
+                        
+                    </ScrollView>
+
+                </Modal >
+
+
+                <Modal visible={keypadModalVisible}
+                    onRequestClose={() => setKeypadModalVisible(false)}
+                    animationType="slide"
+                    presentationStyle="pageSheet"
+                    transparent={false}>
+                    <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)", padding: 15, }} >
+
+                        <TouchableOpacity onPress={() => setKeypadModalVisible(false)} style={{ marginTop: 15 }}>
+                            <Text style={{ fontSize: 25 }}>Cancel</Text>
+                        </TouchableOpacity>
+                        <View style={styles.KeypadContainer}>
+
+                            <View style={{ flexDirection: "row", gap: 30 }}>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        1
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        2
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        A B C
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        3
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        D E F
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        4
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        G H I
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        5
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        J K L
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        6
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        M N O
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        7
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        P Q R S
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        8
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        T U V
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        9
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        W X Y Z
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        *
+                                    </Text>
+
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        0
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        +
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        #
+                                    </Text>
+
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity style={{ backgroundColor: "lightgreen", height: 75, width: 75, borderRadius: 75, }}>
+
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+
+
+                <Modal visible={favoritesModalVissible}
+                    onRequestClose={() => setFavoritesVissible(false)}
+                    animationType="slide"
+                    presentationStyle="pageSheet"
+                    transparent={false}>
+                    <SafeAreaView style={styles.Favorites}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+                            <TouchableOpacity onPress={() => setFavoritesVissible(false)} style={{ marginTop: 15 }}>
+                                <Text style={{ fontSize: 25 }}>
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: 22 }}>Add favorite</Text>
+                            <TouchableOpacity>
+                                <Text style={{ fontSize: 25 }}>Done</Text>
+                            </TouchableOpacity >
+                        </View>
+                        <View style={{ width: "100%", height: 40, backgroundColor: "lightgray", borderRadius: 10, flexDirection: "row", alignItems: "center", paddingHorizontal: 10, gap: 10, marginTop: 18 }}>
+                            <EvilIcons name="search" size={24} color="black" />
+                            <TextInput
                                 placeholder='Search name or number'
                                 placeholderTextColor={"gray"}
                                 style={{ fontSize: 18, flex: 1, }}
-                                />
-                            </View>
-                            <View style={{width:"100%",height:60,backgroundColor:"gray",}}>
+                            />
+                        </View>
+                        <View style={{ width: "100%", height: 60, backgroundColor: "gray", }}>
 
-                            </View>
-                        </SafeAreaView>
-                    </Modal>
+                        </View>
+                    </SafeAreaView>
+                </Modal>
 
-                </SafeAreaView >
-            </SafeAreaProvider >
-        </PaperProvider>
+            </SafeAreaView >
+        </SafeAreaProvider >
+        </PaperProvider >
     )
 }
 
@@ -719,6 +780,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#6f6fd6",
         borderRadius: 10,
         padding: 15,
+        marginTop: 25
     },
 
     Favorites: {
