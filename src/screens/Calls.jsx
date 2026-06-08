@@ -238,7 +238,7 @@ const Calls = () => {
                         <FlatList
                             data={DataCall}
                             renderItem={({ item }) => (<TouchableOpacity
-                                onPress={() => navigation.navigate('Dailycall',{DataCall:item})}
+                                onPress={() => navigation.navigate('Dailycall', { DataCall: item })}
                                 style={styles.callContainer}>
 
                                 <Image source={item.image}
@@ -433,130 +433,130 @@ const Calls = () => {
                     </Modal>
 
 
-                    <Modal visible={keypadModalVisible}
-                        onRequestClose={() => setKeypadModalVisible(false)}
-                        animationType="slide"
-                        presentationStyle="pageSheet"
-                        transparent={false}>
-                        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)", padding: 15, }} >
+                <Modal visible={keypadModalVisible}
+                    onRequestClose={() => setKeypadModalVisible(false)}
+                    animationType="slide"
+                    presentationStyle="pageSheet"
+                    transparent={false}>
+                    <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)", padding: 15, }} >
 
-                            <TouchableOpacity onPress={() => setKeypadModalVisible(false)} style={{ marginTop: 15 }}>
-                                <Text style={{ fontSize: 25 }}>Cancel</Text>
-                            </TouchableOpacity>
-                            <View style={styles.KeypadContainer}>
+                        <TouchableOpacity onPress={() => setKeypadModalVisible(false)} style={{ marginTop: 15 }}>
+                            <Text style={{ fontSize: 25 }}>Cancel</Text>
+                        </TouchableOpacity>
+                        <View style={styles.KeypadContainer}>
 
-                                <View style={{ flexDirection: "row", gap: 30 }}>
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            1
-                                        </Text>
-                                    </TouchableOpacity>
+                            <View style={{ flexDirection: "row", gap: 30 }}>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        1
+                                    </Text>
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            2
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            A B C
-                                        </Text>
-                                    </TouchableOpacity>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        2
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        A B C
+                                    </Text>
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            3
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            D E F
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        3
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        D E F
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            4
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            G H I
-                                        </Text>
-                                    </TouchableOpacity>
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        4
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        G H I
+                                    </Text>
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            5
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            J K L
-                                        </Text>
-                                    </TouchableOpacity>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        5
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        J K L
+                                    </Text>
+                                </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            6
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            M N O
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            7
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            P Q R S
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            8
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            T U V
-                                        </Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            9
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            W X Y Z
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        6
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        M N O
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
 
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        7
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        P Q R S
+                                    </Text>
+                                </TouchableOpacity>
 
-                                <View style={{ flexDirection: "row", gap: 30 }} >
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            *
-                                        </Text>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        8
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        T U V
+                                    </Text>
+                                </TouchableOpacity>
 
-                                    </TouchableOpacity>
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        9
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        W X Y Z
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            0
-                                        </Text>
-                                        <Text style={styles.smalltext}>
-                                            +
-                                        </Text>
-                                    </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.Keypad}>
-                                        <Text style={styles.boxKeypad}>
-                                            #
-                                        </Text>
 
-                                    </TouchableOpacity>
-                                </View>
-                                <TouchableOpacity style={{ backgroundColor: "lightgreen", height: 75, width: 75, borderRadius: 75, }}>
+                            <View style={{ flexDirection: "row", gap: 30 }} >
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        *
+                                    </Text>
+
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        0
+                                    </Text>
+                                    <Text style={styles.smalltext}>
+                                        +
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.Keypad}>
+                                    <Text style={styles.boxKeypad}>
+                                        #
+                                    </Text>
+
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity style={{ backgroundColor: "lightgreen", height: 75, width: 75, borderRadius: 75, }}>
 
                                 </TouchableOpacity>
                             </View>
