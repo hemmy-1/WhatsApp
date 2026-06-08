@@ -238,7 +238,7 @@ const Calls = () => {
                         <FlatList
                             data={DataCall}
                             renderItem={({ item }) => (<TouchableOpacity
-                                onPress={() => navigation.navigate('Dailycall')}
+                                onPress={() => navigation.navigate('Dailycall',{DataCall:item})}
                                 style={styles.callContainer}>
 
                                 <Image source={item.image}
@@ -562,7 +562,7 @@ const Calls = () => {
                             </View>
                         </View>
                     </Modal>
-
+                    
                 </SafeAreaView >
             </SafeAreaProvider >
         </PaperProvider>
