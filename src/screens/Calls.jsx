@@ -272,163 +272,163 @@ const Calls = () => {
                     <Modal visible={scheduleModalVisible}
                         onRequestClose={() => setScheduleModalVisible(false)}
                         animationType="slide"
-                        presentationStyle="pageSheet"                       
+                        presentationStyle="pageSheet"
                         transparent={false}>
-                        <ScrollView>
-                            <View style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, gap: 20, borderTopLeftRadius: 8, borderTopRightRadius: 8, }}>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
-                                    <TouchableOpacity onPress={() => setScheduleModalVisible(false)}>
-                                        <Text style={{ fontSize: 21, color: "white" }}>
-                                            Cancel
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <Text style={{ fontSize: 21, color: "white", fontWeight: "bold" }}>
-                                        Schedule a call
-                                    </Text>
-                                    <TouchableOpacity>
-                                        <Text style={{ fontSize: 21, color: "white" }}>
-                                            Next
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.card}>
+                        <ScrollView style={{ flex: 1, backgroundColor: "#0b141a", paddingTop: 60, padding: 20, borderTopLeftRadius: 8, borderTopRightRadius: 8, }} >
 
-                                    <TextInput
-                                        placeholder='Event title'
-                                        placeholderTextColor={"gray"}
-                                        value={title}
-                                        onChangeText={setTitle}
-                                        maxLength={maxChars}
-                                        style={{ fontSize: 18, }}
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+                                <TouchableOpacity onPress={() => setScheduleModalVisible(false)}>
+                                    <Text style={{ fontSize: 21, color: "white" }}>
+                                        Cancel
+                                    </Text>
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 21, color: "white", fontWeight: "bold" }}>
+                                    Schedule a call
+                                </Text>
+                                <TouchableOpacity>
+                                    <Text style={{ fontSize: 21, color: "white" }}>
+                                        Next
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.card}>
+
+                                <TextInput
+                                    placeholder='Event title'
+                                    placeholderTextColor={"gray"}
+                                    value={title}
+                                    onChangeText={setTitle}
+                                    maxLength={maxChars}
+                                    style={{ fontSize: 18, }}
+                                />
+
+
+                                <View style={styles.Divider} />
+                                <TextInput
+                                    placeholder="Add description(optional)"
+                                    placeholderTextColor={"black"}
+                                    multiline
+                                    // value={description}
+                                    maxLength={maxChars}
+                                    style={{ fontSize: 18, height: 60, textAlignVertical: "top", }}
+
+
+                                />
+
+                                <Text style={styles.charCount}>{maxChars - description.length}</Text>
+                            </View>
+
+
+                            {/*Date and Time */}
+
+
+                            <View style={styles.card}>
+                                <View style={styles.row}>
+                                    <Text style={styles.label}>Starts</Text>
+                                    <View style={{ flexDirection: "row", }}>
+                                        <TouchableOpacity onPress={() => setShowStartPicker(true)} >
+                                            <Text style={styles.pill}>
+                                                {startDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setShowStartPicker(true)}>
+                                            <Text style={styles.pill}>
+                                                {startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                <View style={styles.Divider} />
+
+                                <View style={styles.row}>
+                                    <Text style={styles.label}>Ends</Text>
+                                    <View style={{ flexDirection: "row", }}>
+                                        <TouchableOpacity onPress={() => setShowEndPicker(true)} style={{ paddingLeft: 58 }}>
+                                            <Text style={styles.pill}>
+                                                {endDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setShowEndPicker(true)} >
+                                            <Text style={styles.pill}>
+                                                {endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                <View style={styles.Divider} />
+                                <View style={styles.row}>
+                                    <Text style={{ fontSize: 17 }}>
+                                        Include end time
+                                    </Text>
+                                    <Switch
+                                        value={includeEndTime}
+                                        onValueChange={setIncludeEndTime}
+                                        trackColor={{ false: "#ccc", true: "#34c759" }}
                                     />
 
-
-                                    <View style={styles.Divider} />
-                                    <TextInput
-                                        placeholder="Add description(optional)"
-                                        placeholderTextColor={"black"}
-                                        multiline
-                                        // value={description}
-                                        maxLength={maxChars}
-                                        style={{ fontSize: 18, height: 60, textAlignVertical: "top", }}
-
-
-                                    />
-
-                                    <Text style={styles.charCount}>{maxChars - description.length}</Text>
-                                </View>
-
-
-                                {/*Date and Time */}
-
-
-                                <View style={styles.card}>
-                                    <View style={styles.row}>
-                                        <Text style={styles.label}>Starts</Text>
-                                        <View style={{ flexDirection: "row", }}>
-                                            <TouchableOpacity onPress={() => setShowStartPicker(true)} >
-                                                <Text style={styles.pill}>
-                                                    {startDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => setShowStartPicker(true)}>
-                                                <Text style={styles.pill}>
-                                                    {startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-
-                                    <View style={styles.Divider} />
-
-                                    <View style={styles.row}>
-                                        <Text style={styles.label}>Ends</Text>
-                                        <View style={{ flexDirection: "row", }}>
-                                            <TouchableOpacity onPress={() => setShowEndPicker(true)} style={{ paddingLeft: 58 }}>
-                                                <Text style={styles.pill}>
-                                                    {endDate.toLocaleDateString('en-Us', { month: "short", day: "numeric", year: "numeric" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => setShowEndPicker(true)} >
-                                                <Text style={styles.pill}>
-                                                    {endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-
-                                    <View style={styles.Divider} />
-                                    <View style={styles.row}>
-                                        <Text style={{ fontSize: 17 }}>
-                                            Include end time
-                                        </Text>
-                                        <Switch
-                                            value={includeEndTime}
-                                            onValueChange={setIncludeEndTime}
-                                            trackColor={{ false: "#ccc", true: "#34c759" }}
-                                        />
-
-                                    </View>
-                                </View>
-                                <View style={{ paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: "gray" }}>
-                                        Event with cal links can't be more than one year in {"\n"}the future.
-                                    </Text>
-                                </View>
-                                <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between",flexDirection:"row", borderRadius: 10, padding: 10 }}>
-                                    <Text style={{ fontSize: 17, color: "white" }}>
-                                        Call type
-                                    </Text>
-                                    <View style={{flexDirection:"row",alignItems:"center",gap:5}}>
-                                        <Text>15 minutes before</Text>
-                                        <View>
-                                            <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray",  borderRadius: 10, padding: 10 }}>
-                                    <Text style={{ fontSize: 17, color: "white" }}>
-                                        Reminder
-                                    </Text>
-                                    <View style={{flexDirection:"row",alignItems:"center",gap:5}}>
-                                        <Text>15 minutes before</Text>
-                                        <View>
-                                            <Ionicons name="chevron-expand-outline" size={24} color="black" />
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={{ paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: "gray" }}>
-                                        Guests also get notified at the time of the event.
-                                    </Text>
                                 </View>
                             </View>
+                            <View style={{ paddingLeft: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Event with cal links can't be more than one year in {"\n"}the future.
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={{ width: "100%", height: 40, backgroundColor: "darkgray", justifyContent: "space-between", flexDirection: "row", borderRadius: 10, padding: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Call type
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", height: 40, backgroundColor: "darkgray", borderRadius: 10, padding: 10, marginTop: 20 }}>
+                                <Text style={{ fontSize: 17, color: "white" }}>
+                                    Reminder
+                                </Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                    <Text>15 minutes before</Text>
+                                    <View>
+                                        <Ionicons name="chevron-expand-outline" size={24} color="black" />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{ paddingLeft: 10 }}>
+                                <Text style={{ fontSize: 15, color: "gray" }}>
+                                    Guests also get notified at the time of the event.
+                                </Text>
+                            </View>
+
                         </ScrollView>
 
                         {/* Date Pickers */}
                         {showStartPicker && (
-                          <DateTimePicker
-                            value={startDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(e, date) => {
-                              setShowStartPicker(false);
-                              if (date) setStartDate(date);
-                            }}
-                          />
+                            <DateTimePicker
+                                value={startDate}
+                                mode="datetime"
+                                display="default"
+                                onChange={(e, date) => {
+                                    setShowStartPicker(false);
+                                    if (date) setStartDate(date);
+                                }}
+                            />
                         )}
 
                         {showEndPicker && (
-                          <DateTimePicker
-                            value={endDate}
-                            mode="datetime"
-                            display="default"
-                            onChange={(e, date) => {
-                              setShowEndPicker(false);
-                              if (date) setEndDate(date);
-                            }}
-                          />
+                            <DateTimePicker
+                                value={endDate}
+                                mode="datetime"
+                                display="default"
+                                onChange={(e, date) => {
+                                    setShowEndPicker(false);
+                                    if (date) setEndDate(date);
+                                }}
+                            />
                         )}
                     </Modal>
 
@@ -681,6 +681,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#6f6fd6",
         borderRadius: 10,
         padding: 15,
+        marginTop: 25
     },
 })
 

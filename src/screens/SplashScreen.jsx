@@ -15,8 +15,8 @@ export default function SplashScreen() {
         type: 'success',
         text1: 'Welcome!',
         text2: 'Welcome to WhatsApp 👋',
-        position: 'bottom',
-        visibilityTime: 2500,
+        position: 'top',
+        visibilityTime: 3500,
       });
 
       navigation.navigate('Tab');
